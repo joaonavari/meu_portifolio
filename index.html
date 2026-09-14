@@ -1,1386 +1,273 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>João Vitor Navari — Desenvolvedor de Software</title>
-<meta name="description" content="Portfólio de João Vitor Navari, estudante de Engenharia de Software e desenvolvedor freelancer, especializado em JavaScript, TypeScript e React.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230A0D14'/%3E%3Ctext x='50' y='64' font-size='46' text-anchor='middle' fill='%237C6FF0' font-family='monospace' font-weight='700'%3E%3C/%3E%3C/text%3E%3C/svg%3E">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
-<style>
-  /* ============================================
-     TOKENS
-     ============================================ */
-  :root{
-    --bg: #0A0D14;
-    --bg-soft: #0D1019;
-    --surface: #12151F;
-    --surface-2: #191D2B;
-    --border: #232838;
-    --border-soft: #1B2030;
-
-    --text-primary: #EDEFF5;
-    --text-secondary: #9BA3B7;
-    --text-tertiary: #5C6579;
-
-    --violet: #7C6FF0;
-    --violet-soft: rgba(124,111,240,0.14);
-    --blue: #4EA1FF;
-    --blue-soft: rgba(78,161,255,0.14);
-    --green: #3ECF8E;
-    --gradient: linear-gradient(135deg, #7C6FF0 0%, #4EA1FF 100%);
-
-    --font-display: 'Inter', system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-
-    --container: 1140px;
-    --radius-sm: 8px;
-    --radius-md: 14px;
-    --radius-lg: 22px;
-
-    --ease: cubic-bezier(.22,1,.36,1);
-  }
-
-  /* ============================================
-     RESET
-     ============================================ */
-  *,*::before,*::after{ box-sizing: border-box; margin:0; padding:0; }
-  html{ scroll-behavior: smooth; scroll-padding-top: 84px; }
-  body{
-    background: var(--bg);
-    color: var(--text-primary);
-    font-family: var(--font-display);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  img{ max-width:100%; display:block; }
-  a{ color: inherit; text-decoration: none; }
-  ul{ list-style: none; }
-  button{ font-family: inherit; cursor: pointer; }
-  input, textarea{ font-family: inherit; }
-
-  ::selection{ background: var(--violet); color: #fff; }
-
-  :focus-visible{
-    outline: 2px solid var(--blue);
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-
-  /* faint dot-grid texture across the whole page */
-  body::before{
-    content:"";
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 28px 28px;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container{
-    width: 100%;
-    max-width: var(--container);
-    margin: 0 auto;
-    padding: 0 24px;
-    position: relative;
-    z-index: 1;
-  }
-
-  section{ padding: 128px 0; position: relative; }
-  @media (max-width: 720px){ section{ padding: 84px 0; } }
-
-  .eyebrow{
-    font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--violet);
-    letter-spacing: 0.02em;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-  .eyebrow::before{
-    content:"";
-    width: 16px; height: 1px;
-    background: var(--violet);
-    display: inline-block;
-  }
-
-  h1,h2,h3,h4{ font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); }
-  h2{ font-size: clamp(28px, 4vw, 40px); }
-  .section-sub{
-    color: var(--text-secondary);
-    font-size: 17px;
-    max-width: 560px;
-    margin-top: 14px;
-  }
-  .section-head{ margin-bottom: 56px; }
-
-  .accent{ color: var(--violet); }
-  .text-gradient{
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* ============================================
-     BUTTONS
-     ============================================ */
-  .btn{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 13px 24px;
-    border-radius: var(--radius-sm);
-    font-weight: 600;
-    font-size: 15px;
-    border: 1px solid transparent;
-    transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
-    white-space: nowrap;
-  }
-  .btn-primary{
-    background: var(--gradient);
-    color: #08090D;
-  }
-  .btn-primary:hover{ transform: translateY(-2px); }
-  .btn-outline{
-    background: transparent;
-    border-color: var(--border);
-    color: var(--text-primary);
-  }
-  .btn-outline:hover{
-    border-color: var(--violet);
-    background: var(--violet-soft);
-    transform: translateY(-2px);
-  }
-  .btn-sm{ padding: 9px 18px; font-size: 14px; }
-
-  /* ============================================
-     HEADER / NAV
-     ============================================ */
-  .site-header{
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: rgba(10,13,20,0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border-soft);
-  }
-  .nav{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 76px;
-  }
-  .logo{
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 19px;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-  }
-  .logo .accent{ color: var(--blue); }
-
-  .nav-links{
-    display: flex;
-    align-items: center;
-    gap: 36px;
-  }
-  .nav-links a{
-    font-size: 14.5px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    transition: color .2s var(--ease);
-    position: relative;
-    padding: 4px 0;
-  }
-  .nav-links a::after{
-    content:"";
-    position: absolute;
-    left:0; bottom: -2px;
-    width: 0%; height: 2px;
-    background: var(--gradient);
-    transition: width .25s var(--ease);
-  }
-  .nav-links a:hover, .nav-links a.active{ color: var(--text-primary); }
-  .nav-links a:hover::after, .nav-links a.active::after{ width: 100%; }
-
-  .nav-right{ display:flex; align-items:center; gap: 20px; }
-
-  .nav-toggle{
-    display: none;
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    width: 40px; height: 40px;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-primary);
-  }
-
-  @media (max-width: 860px){
-    .nav-links{
-      position: fixed;
-      top: 76px; left: 0; right: 0;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
-      background: var(--bg-soft);
-      border-bottom: 1px solid var(--border-soft);
-      padding: 12px 24px 24px;
-      transform: translateY(-8px);
-      opacity: 0;
-      visibility: hidden;
-      transition: all .25s var(--ease);
-    }
-    .nav-links.open{ transform: translateY(0); opacity: 1; visibility: visible; }
-    .nav-links a{ width: 100%; padding: 12px 0; border-bottom: 1px solid var(--border-soft); }
-    .nav-cta{ display: none; }
-    .nav-toggle{ display: flex; }
-  }
-
-  /* ============================================
-     HERO
-     ============================================ */
-  .hero{
-    padding-top: 190px;
-    padding-bottom: 100px;
-    position: relative;
-  }
-  .hero-glow{
-    position: absolute;
-    top: -120px; right: -140px;
-    width: 560px; height: 560px;
-    background: radial-gradient(circle, rgba(124,111,240,0.28), rgba(78,161,255,0.08) 60%, transparent 72%);
-    filter: blur(10px);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .hero-grid{
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 64px;
-    align-items: center;
-  }
-  @media (max-width: 960px){
-    .hero-grid{ grid-template-columns: 1fr; }
-    .hero{ padding-top: 150px; }
-  }
-
-  .avatar-ring{
-    width: 108px;
-    height: 108px;
-    border-radius: 50%;
-    background: var(--gradient);
-    padding: 3px;
-    display: inline-flex;
-    margin-bottom: 26px;
-  }
-  .avatar-frame{
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    background: var(--surface);
-  }
-  .avatar-img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: relative;
-    z-index: 2;
-  }
-  .avatar-fallback{
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 30px;
-    color: var(--text-primary);
-    background: var(--surface-2);
-    z-index: 1;
-  }
-
-  .status-pill{
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    padding: 7px 14px 7px 10px;
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-bottom: 28px;
-    font-family: var(--font-mono);
-  }
-  .status-dot{
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 0 0 rgba(62,207,142,0.6);
-    animation: pulse 2.2s infinite;
-  }
-  @keyframes pulse{
-    0%{ box-shadow: 0 0 0 0 rgba(62,207,142,0.45); }
-    70%{ box-shadow: 0 0 0 8px rgba(62,207,142,0); }
-    100%{ box-shadow: 0 0 0 0 rgba(62,207,142,0); }
-  }
-
-  .hero h1{
-    font-size: clamp(38px, 5.6vw, 60px);
-    line-height: 1.08;
-    margin-bottom: 20px;
-  }
-  .hero-role{
-    font-family: var(--font-mono);
-    font-size: clamp(16px, 2vw, 19px);
-    color: var(--blue);
-    font-weight: 500;
-    margin-bottom: 22px;
-  }
-  .hero p.lede{
-    font-size: 17.5px;
-    color: var(--text-secondary);
-    max-width: 480px;
-    margin-bottom: 36px;
-  }
-  .hero-actions{
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-bottom: 44px;
-  }
-  .hero-socials{
-    display: flex;
-    gap: 14px;
-  }
-  .icon-link{
-    width: 40px; height: 40px;
-    display: flex; align-items: center; justify-content: center;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    transition: all .2s var(--ease);
-  }
-  .icon-link:hover{
-    color: var(--text-primary);
-    border-color: var(--violet);
-    background: var(--violet-soft);
-    transform: translateY(-2px);
-  }
-  .icon-link svg{ width: 18px; height: 18px; }
-
-  /* Terminal card — signature element */
-  .terminal{
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6);
-    position: relative;
-    z-index: 1;
-  }
-  .terminal-bar{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 16px;
-    background: var(--surface-2);
-    border-bottom: 1px solid var(--border);
-  }
-  .terminal-dot{ width: 11px; height: 11px; border-radius: 50%; }
-  .terminal-dot.red{ background: #FF5F57; }
-  .terminal-dot.yellow{ background: #FEBC2E; }
-  .terminal-dot.green{ background: #28C840; }
-  .terminal-title{
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: var(--text-tertiary);
-    margin-left: 8px;
-  }
-  .terminal-body{
-    padding: 26px 24px 30px;
-    font-family: var(--font-mono);
-    font-size: 14.5px;
-    min-height: 260px;
-  }
-  .terminal-line{ margin-bottom: 14px; }
-  .terminal-prompt{ color: var(--blue); }
-  .terminal-path{ color: var(--violet); }
-  .terminal-output{ color: var(--text-secondary); padding-left: 2px; }
-  .terminal-output strong{ color: var(--text-primary); font-weight: 600; }
-  .cursor{
-    display: inline-block;
-    width: 8px; height: 16px;
-    background: var(--blue);
-    margin-left: 4px;
-    vertical-align: middle;
-    animation: blink 1s step-end infinite;
-  }
-  @keyframes blink{ 50%{ opacity: 0; } }
-
-  /* ============================================
-     ABOUT
-     ============================================ */
-  .about-grid{
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 64px;
-    align-items: start;
-  }
-  @media (max-width: 860px){ .about-grid{ grid-template-columns: 1fr; gap: 40px; } }
-
-  .about-text p{
-    color: var(--text-secondary);
-    font-size: 16.5px;
-    margin-bottom: 18px;
-  }
-  .about-text p strong{ color: var(--text-primary); font-weight: 600; }
-
-  .stat-list{
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-  }
-  .stat-item{
-    padding: 22px 24px;
-    border-bottom: 1px solid var(--border-soft);
-    background: var(--surface);
-  }
-  .stat-item:last-child{ border-bottom: none; }
-  .stat-number{
-    font-family: var(--font-mono);
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--text-primary);
-    display: block;
-  }
-  .stat-label{
-    font-size: 13.5px;
-    color: var(--text-tertiary);
-    margin-top: 4px;
-  }
-
-  /* ============================================
-     SKILLS
-     ============================================ */
-  .skills-grid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  @media (max-width: 860px){ .skills-grid{ grid-template-columns: 1fr; } }
-
-  .skill-card{
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    transition: border-color .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
-  }
-  .skill-card:hover{
-    border-color: var(--border-soft);
-    transform: translateY(-6px);
-    box-shadow: 0 20px 45px -20px rgba(124,111,240,0.45);
-  }
-  .skill-window-bar{
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 14px;
-    background: var(--surface-2);
-    border-bottom: 1px solid var(--border);
-  }
-  .skill-window-label{
-    margin-left: 8px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-tertiary);
-  }
-  .skill-card-body{ padding: 26px 26px 28px; }
-  .skill-icon{ width: 30px; height: 30px; margin-bottom: 18px; }
-  .skill-icon svg{ width: 100%; height: 100%; }
-  .skill-icon.icon-violet{ color: var(--violet); }
-  .skill-icon.icon-blue{ color: var(--blue); }
-  .skill-icon.icon-green{ color: var(--green); }
-  .skill-card h3{ font-size: 16px; font-weight: 600; margin-bottom: 14px; }
-  .skill-card p.skill-desc{
-    color: var(--text-tertiary);
-    font-size: 13.5px;
-    margin-bottom: 18px;
-  }
-  .chip-group{ display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip{
-    font-family: var(--font-mono);
-    font-size: 13px;
-    padding: 6px 12px;
-    border-radius: 100px;
-    border: 1px solid var(--border);
-    color: var(--text-secondary);
-    transition: transform .2s var(--ease), filter .2s var(--ease);
-  }
-  .chip:hover{ transform: translateY(-2px); filter: brightness(1.2); }
-  .chip.learning{
-    border: 1px dashed var(--green);
-    color: var(--green);
-    background: rgba(62,207,142,0.07);
-  }
-  .chip-js{ color: #F5C842; border-color: rgba(245,200,66,0.35); background: rgba(245,200,66,0.08); }
-  .chip-ts{ color: var(--blue); border-color: rgba(78,161,255,0.35); background: var(--blue-soft); }
-  .chip-react{ color: #56D4DD; border-color: rgba(86,212,221,0.35); background: rgba(86,212,221,0.08); }
-  .chip-c{ color: #9AA7C7; border-color: rgba(154,167,199,0.35); background: rgba(154,167,199,0.08); }
-  .chip-cpp{ color: #6C93F0; border-color: rgba(108,147,240,0.35); background: rgba(108,147,240,0.08); }
-  .chip-java{ color: #F2915D; border-color: rgba(242,145,93,0.35); background: rgba(242,145,93,0.08); }
-  .chip-tailwind{ color: #38BDF8; border-color: rgba(56,189,248,0.35); background: rgba(56,189,248,0.08); }
-  .chip-styled{ color: #F472B6; border-color: rgba(244,114,182,0.35); background: rgba(244,114,182,0.08); }
-  .chip-python{ color: #FBBF24; border-color: rgba(251,191,36,0.35); background: rgba(251,191,36,0.08); }
-  .chip-node{ color: #4ADE80; border-color: rgba(74,222,128,0.35); background: rgba(74,222,128,0.08); }
-  .chip-sql{ color: #A78BFA; border-color: rgba(167,139,250,0.35); background: rgba(167,139,250,0.08); }
-  .chip-mysql{ color: #60A5FA; border-color: rgba(96,165,250,0.35); background: rgba(96,165,250,0.08); }
-  .chip-postgres{ color: #7DD3FC; border-color: rgba(125,211,252,0.35); background: rgba(125,211,252,0.08); }
-  .chip-nosql{ color: #2DD4BF; border-color: rgba(45,212,191,0.35); background: rgba(45,212,191,0.08); }
-
-  /* ============================================
-     EXPERIENCE / TIMELINE
-     ============================================ */
-  .timeline{
-    position: relative;
-    padding-left: 32px;
-    margin-bottom: 72px;
-  }
-  .timeline::before{
-    content:"";
-    position: absolute;
-    left: 5px; top: 6px; bottom: 6px;
-    width: 1px;
-    background: linear-gradient(var(--violet), var(--blue));
-    opacity: 0.4;
-  }
-  .timeline-item{
-    position: relative;
-    padding-bottom: 44px;
-  }
-  .timeline-item:last-child{ padding-bottom: 0; }
-  .timeline-dot{
-    position: absolute;
-    left: -32px; top: 4px;
-    width: 11px; height: 11px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--violet);
-  }
-  .timeline-item.current .timeline-dot{ border-color: var(--green); }
-  .timeline-period{
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: var(--text-tertiary);
-    margin-bottom: 8px;
-    display: block;
-  }
-  .timeline-item h3{ font-size: 19px; margin-bottom: 6px; }
-  .timeline-item .role-tag{
-    font-size: 13.5px;
-    color: var(--blue);
-    font-weight: 500;
-    margin-bottom: 10px;
-    display: block;
-  }
-  .timeline-item p{ color: var(--text-secondary); font-size: 15px; max-width: 620px; }
-
-  .projects-grid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 960px){ .projects-grid{ grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 640px){ .projects-grid{ grid-template-columns: 1fr; } }
-
-  .project-card{
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    transition: transform .25s var(--ease), border-color .25s var(--ease);
-  }
-  .project-card:hover{ transform: translateY(-4px); border-color: var(--border-soft); }
-  .project-window-bar{
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 12px;
-    background: var(--surface-2);
-    border-bottom: 1px solid var(--border);
-  }
-  .w-dot{ width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .w-dot.red{ background: #FF5F57; }
-  .w-dot.yellow{ background: #FEBC2E; }
-  .w-dot.green{ background: #28C840; }
-  .project-window-url{
-    margin-left: 10px;
-    flex: 1;
-    text-align: center;
-    max-width: 200px;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    color: var(--text-tertiary);
-    background: var(--bg-soft);
-    border-radius: 100px;
-    padding: 3px 10px;
-  }
-  .project-thumb{
-    aspect-ratio: 16/7;
-    background:
-      repeating-linear-gradient(135deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 12px),
-      var(--surface-2);
-    border-bottom: 1px dashed var(--border);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    color: var(--text-tertiary);
-    position: relative;
-    overflow: hidden;
-  }
-  .project-thumb-img{
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-  }
-  .project-thumb svg{ width: 20px; height: 20px; opacity: 0.6; }
-  .project-thumb span{ font-family: var(--font-mono); font-size: 10.5px; }
-  .project-body{ padding: 16px 18px 18px; }
-  .project-body h3{ font-size: 15px; margin-bottom: 6px; }
-  .project-body p{ color: var(--text-tertiary); font-size: 12.5px; margin-bottom: 12px; }
-  .project-tags{ display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
-  .project-tags .chip{ font-size: 11.5px; padding: 4px 9px; }
-  .project-links{ display: flex; gap: 18px; }
-  .project-links a{
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    transition: color .2s var(--ease);
-  }
-  .project-links a:hover{ color: var(--blue); }
-  .project-links svg{ width: 13px; height: 13px; }
-
-  /* ============================================
-     CONTACT
-     ============================================ */
-  .contact-grid{
-    display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
-    gap: 56px;
-  }
-  @media (max-width: 860px){ .contact-grid{ grid-template-columns: 1fr; gap: 40px; } }
-
-  .contact-links{ display: flex; flex-direction: column; gap: 14px; }
-  .contact-link-card{
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 18px 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    transition: all .22s var(--ease);
-  }
-  .contact-link-card:hover{
-    border-color: var(--violet);
-    background: var(--violet-soft);
-    transform: translateX(4px);
-  }
-  .contact-link-icon{
-    width: 42px; height: 42px;
-    border-radius: var(--radius-sm);
-    background: var(--surface-2);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .contact-link-icon svg{ width: 19px; height: 19px; color: var(--text-primary); }
-  .contact-link-text .label{ font-size: 13px; color: var(--text-tertiary); }
-  .contact-link-text .value{ font-size: 15px; font-weight: 600; }
-
-  .contact-form{
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 32px;
-  }
-  .form-row{ margin-bottom: 20px; }
-  .form-row label{
-    display: block;
-    font-size: 13.5px;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-    font-weight: 500;
-  }
-  .form-row input, .form-row textarea{
-    width: 100%;
-    background: var(--bg-soft);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 13px 14px;
-    color: var(--text-primary);
-    font-size: 14.5px;
-    transition: border-color .2s var(--ease);
-  }
-  .form-row input:focus, .form-row textarea:focus{
-    border-color: var(--violet);
-    outline: none;
-  }
-  .form-row textarea{ resize: vertical; min-height: 120px; }
-  .form-status{
-    font-size: 13.5px;
-    margin-top: 4px;
-    min-height: 18px;
-    color: var(--green);
-    font-family: var(--font-mono);
-  }
-
-  /* ============================================
-     FOOTER
-     ============================================ */
-  .site-footer{
-    border-top: 1px solid var(--border-soft);
-    padding: 32px 0;
-  }
-  .footer-row{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .footer-row p{ font-size: 13.5px; color: var(--text-tertiary); }
-  .back-to-top{
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-secondary);
-    transition: color .2s var(--ease);
-  }
-  .back-to-top:hover{ color: var(--blue); }
-
-  /* ============================================
-     SCROLL REVEAL
-     ============================================ */
-  .reveal{
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity .7s var(--ease), transform .7s var(--ease);
-  }
-  .reveal.in-view{ opacity: 1; transform: translateY(0); }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090A0C">
+  <script>
+    try {
+      if (localStorage.getItem("portfolio-theme") === "light") {
+        document.documentElement.dataset.theme = "light";
+        document.querySelector('meta[name="theme-color"]').content = "#F5F6F8";
+      }
+    } catch (_) { /* O tema escuro permanece disponível sem armazenamento. */ }
+  </script>
+  <meta name="description" content="João Vitor Navari é estudante de Engenharia de Software na UniCesumar e desenvolvedor front-end freelancer com experiência em infraestrutura de TI. Conheça seus projetos e trajetória.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="João Vitor Navari — Desenvolvedor Front-end">
+  <meta property="og:description" content="Engenharia de Software, experiência em infraestrutura de TI e projetos de desenvolvimento web.">
+  <title>João Vitor Navari — Desenvolvedor Front-end</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23090A0C'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial,sans-serif' font-size='28' font-weight='700' fill='%236EA8FF'%3EJV%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/main.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#top">Pular para o conteúdo</a>
 
-<!-- ============================================
-     HEADER
-     ============================================ -->
-<header class="site-header">
-  <nav class="nav container">
-    <a href="#top" class="logo">&lt;JV<span class="accent">/</span>&gt;</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="João Vitor Navari — início">JV<span aria-hidden="true">.</span></a>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#habilidades">Habilidades</a></li>
-      <li><a href="#experiencia">Experiência</a></li>
-      <li><a href="#projetos">Projetos</a></li>
-      <li><a href="#contato">Contato</a></li>
-    </ul>
+      <nav class="desktop-nav" aria-label="Navegação principal">
+        <ul>
+          <li><a href="#sobre" data-nav-link>Sobre</a></li>
+          <li><a href="#experiencia" data-nav-link>Experiência</a></li>
+          <li><a href="#projetos" data-nav-link>Projetos</a></li>
+          <li><a href="#habilidades" data-nav-link>Stack</a></li>
+          <li><a href="#contato" data-nav-link>Contato</a></li>
+        </ul>
+      </nav>
 
-    <div class="nav-right">
-      <a href="#contato" class="btn btn-primary btn-sm nav-cta">Fale comigo</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
-        <svg id="iconMenu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-    </div>
-  </nav>
-</header>
-
-<main id="top">
-
-  <!-- ============================================
-       HERO
-       ============================================ -->
-  <section class="hero" id="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="container hero-grid">
-
-      <div class="hero-content reveal">
-        <div class="avatar-ring">
-          <div class="avatar-frame">
-            <img src="foto.jpg" alt="Foto de João Vitor Navari" class="avatar-img" id="avatarImg">
-            <span class="avatar-fallback" id="avatarFallback" aria-hidden="true">JV</span>
-          </div>
-        </div>
-        <span class="status-pill"><span class="status-dot"></span>Disponível para novos projetos</span>
-        <p class="hero-role">// desenvolvedor front-end &amp; full-stack</p>
-        <h1>Olá, eu sou<br><span class="text-gradient">João Vitor Navari</span></h1>
-        <p class="lede">Estudante de Engenharia de Software na UniCesumar, unindo 1 ano de vivência em infraestrutura de TI a experiência prática como desenvolvedor front-end freelancer desde abril de 2026.</p>
-
-        <div class="hero-actions">
-          <a href="#projetos" class="btn btn-primary">Veja meus projetos</a>
-          <a href="#contato" class="btn btn-outline">Fale comigo</a>
-        </div>
-
-        <div class="hero-socials">
-
-          <a href="https://www.linkedin.com/in/jo%C3%A3o-vitor-navari-elias-santos/" class="icon-link" aria-label="LinkedIn de João Vitor" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
-          </a>
-          <a href="https://github.com/joaonavari" class="icon-link" aria-label="GitHub de João Vitor" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.2c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.49 0-.24-.01-1.03-.01-1.87-2.78.61-3.37-1.19-3.37-1.19-.45-1.17-1.11-1.48-1.11-1.48-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.55 2.34 1.1 2.91.84.09-.66.35-1.1.63-1.36-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5.01 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.2C22 6.58 17.52 2 12 2z"/></svg>
-          </a>
-          <a href="mailto:joaovitorne.16@gmail.com" class="icon-link" aria-label="Enviar e-mail para João Vitor">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <div class="hero-visual reveal">
-        <div class="terminal">
-          <div class="terminal-bar">
-            <span class="terminal-dot red"></span>
-            <span class="terminal-dot yellow"></span>
-            <span class="terminal-dot green"></span>
-            <span class="terminal-title">joao@portfolio — zsh</span>
-          </div>
-          <div class="terminal-body" id="terminalBody"><!-- preenchido via JS --></div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ============================================
-       SOBRE
-       ============================================ -->
-  <section id="sobre">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">sobre-mim</p>
-        <h2>Da infraestrutura ao código</h2>
-      </div>
-
-      <div class="about-grid">
-        <div class="about-text reveal">
-          <p>Sou apaixonado por tecnologia e por resolver problemas — e foi essa curiosidade que me trouxe até a <strong>Engenharia de Software na UniCesumar</strong>. Antes de escrever a primeira linha de código profissionalmente, passei <strong>1 ano em T.I no Colégio Santa Cruz</strong> (abril de 2025 a abril de 2026), dando suporte técnico e cuidando da infraestrutura de rede e equipamentos.</p>
-          <p>Essa vivência me deu uma base prática de como sistemas realmente funcionam por trás das telas. Hoje, aplico essa bagagem de outra forma: <strong>desde abril de 2026 atuo como desenvolvedor front-end freelancer</strong>, criando sites e sistemas sob medida para clientes reais, sempre buscando entregar soluções simples, funcionais e bem construídas.</p>
-        </div>
-
-        <div class="stat-list reveal">
-          <div class="stat-item">
-            <span class="stat-number">1 ano</span>
-            <span class="stat-label">T.I — Colégio Santa Cruz (2025–2026)</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">Abr/2026</span>
-            <span class="stat-label">Início como freelancer front-end</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">UniCesumar</span>
-            <span class="stat-label">4º semestre — Eng. de Software</span>
-          </div>
-        </div>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Ativar modo claro" title="Ativar modo claro" disabled>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 15.4A8.5 8.5 0 0 1 8.6 3.5 8.5 8.5 0 1 0 20.5 15.4Z"/></svg>
+        </button>
+        <details class="mobile-menu" id="mobileMenu">
+          <summary aria-label="Menu de navegação">
+            <span class="menu-text">Menu</span>
+            <span class="menu-icon" aria-hidden="true"><span></span><span></span></span>
+          </summary>
+          <nav class="mobile-nav" aria-label="Navegação móvel">
+            <ul>
+              <li><a href="#sobre" data-nav-link>Sobre</a></li>
+              <li><a href="#experiencia" data-nav-link>Experiência</a></li>
+              <li><a href="#projetos" data-nav-link>Projetos</a></li>
+              <li><a href="#habilidades" data-nav-link>Stack</a></li>
+              <li><a href="#contato" data-nav-link>Contato</a></li>
+            </ul>
+          </nav>
+        </details>
       </div>
     </div>
-  </section>
+  </header>
 
-  <!-- ============================================
-       HABILIDADES
-       ============================================ -->
-  <section id="habilidades">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">stack</p>
-        <h2>Ferramentas que uso no dia a dia</h2>
-        <p class="section-sub">Da lógica de base ao front-end moderno — e sempre estudando algo novo.</p>
-      </div>
-
-      <div class="skills-grid">
-        <div class="skill-card reveal">
-          <div class="skill-window-bar">
-            <span class="w-dot red"></span>
-            <span class="w-dot yellow"></span>
-            <span class="w-dot green"></span>
-            <span class="skill-window-label">frontend.tsx</span>
+  <main id="top">
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="container hero-layout">
+        <div class="hero-content">
+          <p class="overline hero-overline"><span class="overline-rule" aria-hidden="true"></span> João Vitor Navari / Portfólio</p>
+          <h1 id="hero-title">João Vitor<br><span>Navari<span class="hero-period">.</span></span></h1>
+          <p class="hero-role">Desenvolvedor Front-end <span aria-hidden="true">/</span> Estudante de Engenharia de Software</p>
+          <p class="hero-intro">Depois de um ano em infraestrutura de TI, hoje desenvolvo projetos front-end como freelancer e sigo evoluindo para Full Stack na UniCesumar.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#projetos">Ver projetos <span aria-hidden="true">↗</span></a>
+            <a class="button button-secondary" href="#contato">Entrar em contato</a>
           </div>
-          <div class="skill-card-body">
-            <div class="skill-icon icon-violet">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <div class="hero-meta">
+            <span class="availability"><span class="availability-dot" aria-hidden="true"></span>Disponível para novos projetos</span>
+            <div class="hero-social">
+              <a href="https://github.com/joaonavari" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+              <a href="https://www.linkedin.com/in/jo%C3%A3o-vitor-navari-elias-santos/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
             </div>
+          </div>
+        </div>
+
+        <figure class="hero-portrait">
+          <div class="portrait-frame">
+            <img src="./assets/images/joao-vitor-navari.jpg" srcset="./assets/images/joao-vitor-navari-320.jpg 320w, ./assets/images/joao-vitor-navari.jpg 640w" sizes="(max-width: 760px) 280px, 400px" width="640" height="626" alt="Ilustração de João Vitor Navari" fetchpriority="high">
+          </div>
+          <figcaption><span>Perfil / 01</span><span>Engenharia de Software</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section about-section" id="sobre" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <p class="overline"><span class="section-number">01</span> / Sobre</p>
+          <h2 id="about-title">Da infraestrutura<br>ao desenvolvimento.</h2>
+        </div>
+        <div class="about-layout">
+          <p class="about-lead" data-reveal>Minha trajetória começou na infraestrutura de TI e hoje continua no desenvolvimento web.</p>
+          <div class="about-copy" data-reveal>
+            <p>Estudo Engenharia de Software na UniCesumar. Entre abril de 2025 e abril de 2026, trabalhei com suporte técnico, rede e equipamentos no Colégio Santa Cruz.</p>
+            <p>Desde abril de 2026, atuo como desenvolvedor front-end freelancer, criando e publicando sites e sistemas. Essa base em infraestrutura acompanha minha evolução para Full Stack.</p>
+          </div>
+        </div>
+        <ol class="journey" aria-label="Trajetória de desenvolvimento" data-reveal>
+          <li><span class="journey-step">01</span><strong>Infraestrutura de TI</strong><span>1 ano de experiência</span></li>
+          <li><span class="journey-step">02</span><strong>Engenharia de Software</strong><span>4º semestre — UniCesumar</span></li>
+          <li><span class="journey-step">03</span><strong>Front-end freelancer</strong><span>Desde abril de 2026</span></li>
+          <li><span class="journey-step">04</span><strong>Evolução Full Stack</strong><span>Aprendizado contínuo</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section experience-section" id="experiencia" aria-labelledby="experience-title">
+      <div class="container">
+        <div class="section-heading section-heading-split" data-reveal>
+          <div>
+            <p class="overline"><span class="section-number">02</span> / Experiência</p>
+            <h2 id="experience-title">Experiência profissional.</h2>
+          </div>
+          <p>Uma base em infraestrutura que hoje aplico no desenvolvimento de projetos web.</p>
+        </div>
+        <ol class="experience-list">
+          <li class="experience-item" data-reveal>
+            <span class="experience-period">Abril 2025 — Abril 2026</span>
+            <div class="experience-details">
+              <p class="experience-type">Suporte &amp; Infraestrutura</p>
+              <h3>T.I <span>— Colégio Santa Cruz</span></h3>
+              <p>Atendimento a chamados técnicos, manutenção de equipamentos e apoio à infraestrutura de rede do colégio. Primeiro contato prático com sistemas, redes e resolução de problemas no dia a dia.</p>
+            </div>
+          </li>
+          <li class="experience-item" data-reveal>
+            <span class="experience-period">Abril 2026 — atualmente</span>
+            <div class="experience-details">
+              <p class="experience-type">Autônomo</p>
+              <h3>Desenvolvedor Front-end <span>— Freelancer</span></h3>
+              <p>Criação e publicação de sites responsivos e landing pages para varejo, advocacia e serviços. Atuação do levantamento de requisitos ao desenvolvimento e deploy.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section projects-section" id="projetos" aria-labelledby="projects-title">
+      <div class="container">
+        <div class="section-heading section-heading-split" data-reveal>
+          <div>
+            <p class="overline"><span class="section-number">03</span> / Projetos</p>
+            <h2 id="projects-title">Projetos selecionados.</h2>
+          </div>
+          <p>Aplicações que mostram diferentes etapas do meu aprendizado e da minha prática em desenvolvimento.</p>
+        </div>
+
+        <article class="project-featured" aria-labelledby="rapidinha-title" data-reveal>
+          <div class="project-image project-image-featured">
+            <img src="./assets/images/rapidinha.jpg" srcset="./assets/images/rapidinha-800.jpg 800w, ./assets/images/rapidinha.jpg 1600w" sizes="(max-width: 760px) 100vw, 60vw" width="1600" height="880" alt="Página do Rapidinha com apresentação do sistema de pedidos antecipados para cantinas" loading="lazy" decoding="async">
+          </div>
+          <div class="project-content">
+            <p class="overline">Projeto em destaque <span class="project-index">/ 01</span></p>
+            <h3 id="rapidinha-title">Rapidinha</h3>
+            <p class="project-summary">Pedidos antecipados para cantinas escolares.</p>
+            <p class="project-description">Plataforma para otimizar o atendimento em cantinas e lanchonetes: alunos fazem pedidos e escolhem o horário de retirada antes de chegar, reduzindo filas.</p>
+            <ul class="technology-list" aria-label="Tecnologias do Rapidinha"><li>React</li><li>JavaScript</li></ul>
+            <div class="project-actions">
+              <a href="https://joaonavari.github.io/rapidinha-home/" target="_blank" rel="noopener noreferrer">Ver projeto <span aria-hidden="true">↗</span></a>
+              <a href="https://github.com/joaonavari/rapidinha-home" target="_blank" rel="noopener noreferrer">Código no GitHub <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <div class="project-grid">
+          <article class="project-secondary" aria-labelledby="finance-title" data-reveal>
+            <div class="project-image">
+              <img src="./assets/images/controle-financeiro.jpg" srcset="./assets/images/controle-financeiro-800.jpg 800w, ./assets/images/controle-financeiro.jpg 1200w" sizes="(max-width: 760px) 100vw, 46vw" width="1200" height="938" alt="Documentação da API de Controle Financeiro com descrição da arquitetura e tecnologias" loading="lazy" decoding="async">
+            </div>
+            <div class="project-secondary-info">
+              <p class="overline">Back-end <span class="project-index">/ 02</span></p>
+              <h3 id="finance-title">API de Controle Financeiro</h3>
+              <p>API RESTful para gestão de finanças pessoais, com padrão DTO, Bean Validation e tratamento centralizado de erros.</p>
+              <ul class="technology-list" aria-label="Tecnologias da API de Controle Financeiro"><li>Java</li><li>Spring Boot</li><li>PostgreSQL</li></ul>
+              <div class="project-actions">
+                <a href="https://github.com/joaonavari/controle-financeiro" target="_blank" rel="noopener noreferrer">Código no GitHub <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-secondary" aria-labelledby="frontend-title" data-reveal>
+            <div class="project-image">
+              <img src="./assets/images/projetos-frontend.jpg" srcset="./assets/images/projetos-frontend-800.jpg 800w, ./assets/images/projetos-frontend.jpg 1200w" sizes="(max-width: 760px) 100vw, 46vw" width="1200" height="654" alt="Página que reúne atividades de Front-end desenvolvidas durante a faculdade" loading="lazy" decoding="async">
+            </div>
+            <div class="project-secondary-info">
+              <p class="overline">Projetos acadêmicos <span class="project-index">/ 03</span></p>
+              <h3 id="frontend-title">Projetos básicos de Front-end</h3>
+              <p>Projetos feitos durante a matéria de Front-end da faculdade, explorando interfaces, responsividade e diferentes tecnologias web.</p>
+              <ul class="technology-list" aria-label="Tecnologias dos projetos de Front-end"><li>React</li><li>TypeScript</li><li>HTML</li><li>CSS</li></ul>
+              <div class="project-actions">
+                <a href="https://joaonavari.github.io/Projetos_FrontEND_ENGSFTW/" target="_blank" rel="noopener noreferrer">Ver projeto <span aria-hidden="true">↗</span></a>
+                <a href="https://github.com/joaonavari/Projetos_FrontEND_ENGSFTW.git" target="_blank" rel="noopener noreferrer">Código no GitHub <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section skills-section" id="habilidades" aria-labelledby="skills-title">
+      <div class="container">
+        <div class="section-heading section-heading-split" data-reveal>
+          <div>
+            <p class="overline"><span class="section-number">04</span> / Stack</p>
+            <h2 id="skills-title">Ferramentas e tecnologias.</h2>
+          </div>
+          <p>Do front-end aos fundamentos de back-end e dados, com foco em aprender enquanto construo.</p>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-group" data-reveal>
+            <span class="skill-group-index">01 /</span>
             <h3>Front-end</h3>
-            <div class="chip-group">
-              <span class="chip chip-js">JavaScript</span>
-              <span class="chip chip-ts">TypeScript</span>
-              <span class="chip chip-react">React</span>
-              <span class="chip chip-tailwind">Tailwind CSS</span>
-              <span class="chip chip-styled">Styled-components</span>
-            </div>
+            <ul><li>JavaScript</li><li>TypeScript</li><li>React</li><li>HTML</li><li>CSS</li></ul>
           </div>
-        </div>
-
-        <div class="skill-card reveal">
-          <div class="skill-window-bar">
-            <span class="w-dot red"></span>
-            <span class="w-dot yellow"></span>
-            <span class="w-dot green"></span>
-            <span class="skill-window-label">core.cpp</span>
+          <div class="skill-group" data-reveal>
+            <span class="skill-group-index">02 /</span>
+            <h3>Estilização</h3>
+            <ul><li>Tailwind CSS</li><li>Styled-components</li></ul>
           </div>
-          <div class="skill-card-body">
-            <div class="skill-icon icon-blue">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-            </div>
-            <h3>Back-end &amp; Linguagens</h3>
-            <div class="chip-group">
-              <span class="chip chip-java">Java</span>
-              <span class="chip chip-python">Python</span>
-              <span class="chip chip-node">Node.js</span>
-              <span class="chip chip-c">C</span>
-              <span class="chip chip-cpp">C++</span>
-            </div>
+          <div class="skill-group" data-reveal>
+            <span class="skill-group-index">03 /</span>
+            <h3>Back-end &amp; linguagens</h3>
+            <ul><li>Node.js</li><li>Java</li><li>Spring Boot</li><li>Python</li><li>C</li><li>C++</li></ul>
           </div>
-        </div>
-
-        <div class="skill-card reveal">
-          <div class="skill-window-bar">
-            <span class="w-dot red"></span>
-            <span class="w-dot yellow"></span>
-            <span class="w-dot green"></span>
-            <span class="skill-window-label">database.json</span>
-          </div>
-          <div class="skill-card-body">
-            <div class="skill-icon icon-green">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
-            </div>
-            <h3>Banco de Dados</h3>
-            <p class="skill-desc">Modelagem relacional (CRUD) com SQL, aprofundando também em persistência não-relacional.</p>
-            <div class="chip-group">
-              <span class="chip chip-sql">SQL</span>
-              <span class="chip chip-mysql">MySQL</span>
-              <span class="chip chip-postgres">PostgreSQL</span>
-              <span class="chip chip-nosql">NoSQL</span>
-            </div>
+          <div class="skill-group" data-reveal>
+            <span class="skill-group-index">04 /</span>
+            <h3>Banco de dados</h3>
+            <ul><li>SQL</li><li>MySQL</li><li>PostgreSQL</li><li>NoSQL</li></ul>
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="section contact-section" id="contato" aria-labelledby="contact-title">
+      <div class="container">
+        <p class="overline" data-reveal><span class="section-number">05</span> / Contato</p>
+        <div class="contact-layout">
+          <div data-reveal>
+            <h2 id="contact-title">Tem um projeto ou uma vaga em mente? <span>Vamos conversar.</span></h2>
+            <p>Se meu perfil fizer sentido para sua equipe ou para o seu projeto, me envie uma mensagem.</p>
+            <a class="contact-email" href="mailto:joaovitorne.16@gmail.com">joaovitorne.16@gmail.com <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="contact-aside" data-reveal>
+            <p class="contact-aside-label">Outros canais</p>
+            <a href="https://www.linkedin.com/in/jo%C3%A3o-vitor-navari-elias-santos" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/joaonavari" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+            <a href="tel:+5544999297681">Telefone <span class="contact-phone">(44) 99929-7681</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year">2026</span> João Vitor Navari.</p>
+      <a href="#top">Voltar ao topo ↑</a>
     </div>
-  </section>
-
-  <!-- ============================================
-       EXPERIÊNCIA
-       ============================================ -->
-  <section id="experiencia">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">trajetória</p>
-        <h2>Experiência &amp; Projetos</h2>
-      </div>
-
-      <div class="timeline">
-        <div class="timeline-item reveal">
-          <span class="timeline-dot"></span>
-          <span class="timeline-period">Abril 2025 — Abril 2026</span>
-          <h3>T.I – Colégio Santa Cruz</h3>
-          <span class="role-tag">Suporte &amp; Infraestrutura</span>
-          <p>Atendimento a chamados técnicos, manutenção de equipamentos e apoio à infraestrutura de rede do colégio. Primeiro contato prático com sistemas, redes e resolução de problemas no dia a dia.</p>
-        </div>
-
-        <div class="timeline-item current reveal">
-          <span class="timeline-dot"></span>
-          <span class="timeline-period">Abril 2026 — atualmente</span>
-          <h3>Desenvolvedor Front-end Freelancer</h3>
-          <span class="role-tag">Autônomo</span>
-          <p>Criação e publicação de sites responsivos e landing pages para segmentos como varejo, advocacia e serviços, cuidando de todo o processo: levantamento de requisitos, desenvolvimento e deploy.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       PROJETOS
-       ============================================ -->
-  <section id="projetos">
-    <div class="container">
-      <div class="projects-grid">
-        <div class="project-card reveal">
-          <div class="project-window-bar">
-            <span class="w-dot red"></span>
-            <span class="w-dot yellow"></span>
-            <span class="w-dot green"></span>
-            <span class="project-window-url">joaonavari.github.io/Projetos_FrontEND_ENGSFTW/</span>
-          </div>
-          <div class="project-thumb">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            <img src="projeto1.jpg" alt="Print do Projeto 01" class="project-thumb-img" data-fallback>
-          </div>
-          <div class="project-body">
-            <h3>Projetos basicos de Front-end </h3>
-            <p>Projetos feitos durante a materia de Front-end da faculdade.</p>
-            <div class="project-tags">
-              <span class="chip">React</span>
-              <span class="chip">TypeScript</span>
-              <span class="chip">HTML</span>
-              <span class="chip">CSS</span>
-
-            </div>
-            <div class="project-links">
-              <a href="https://joaonavari.github.io/Projetos_FrontEND_ENGSFTW/" target="_blank" rel="noopener">Ver projeto <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
-              <a href="https://github.com/joaonavari/Projetos_FrontEND_ENGSFTW.git" target="_blank" rel="noopener">Código <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card reveal">
-          <div class="project-window-bar">
-            <span class="w-dot red"></span>
-            <span class="w-dot yellow"></span>
-            <span class="w-dot green"></span>
-            <span class="project-window-url">github.com/joaonavari/controle-financeiro</span>
-          </div>
-          <div class="project-thumb">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M12 7v10M9 9.5c0-1.1 1.34-2 3-2s3 .9 3 2-1.34 2-3 2-3 .9-3 2 1.34 2 3 2 3-.9 3-2"/></svg>
-            <span>API RESTful — Java / Spring Boot</span>
-            <img src="projeto2.jpg" alt="Print da API de Controle Financeiro" class="project-thumb-img" data-fallback>
-          </div>
-          <div class="project-body">
-            <h3>API de Controle Financeiro</h3>
-            <p>API RESTful para gestão de finanças pessoais, com padrão DTO, Bean Validation e tratamento centralizado de erros.</p>
-            <div class="project-tags">
-              <span class="chip chip-java">Java</span>
-              <span class="chip">Spring Boot</span>
-              <span class="chip">PostgreSQL</span>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/joaonavari/controle-financeiro" target="_blank" rel="noopener">Código <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card reveal">
-          <div class="project-window-bar">
-            <span class="w-dot red"></span>
-            <span class="w-dot yellow"></span>
-            <span class="w-dot green"></span>
-            <span class="project-window-url">digital-flavor-v2.vercel.app</span>
-          </div>
-          <div class="project-thumb">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
-            <span>Plataforma de pedidos — React</span>
-            <img src="projeto3.jpg" alt="Print do Rapidinha" class="project-thumb-img" data-fallback>
-          </div>
-          <div class="project-body">
-            <h3>Rapidinha</h3>
-            <p>Plataforma para otimizar o atendimento em cantinas e lanchonetes: pedidos e horário de retirada antecipados, reduzindo filas.</p>
-            <div class="project-tags">
-              <span class="chip chip-react">React</span>
-              <span class="chip chip-js">JavaScript</span>
-            </div>
-            <div class="project-links">
-              <a href="https://joaonavari.github.io/rapidinha-home/" target="_blank" rel="noopener">Ver projeto <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
-              <a href="https://github.com/joaonavari/rapidinha-home" target="_blank" rel="noopener">Código <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-        
-  <!-- ============================================
-       CONTATO
-       ============================================ -->
-  <section id="contato">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">contato</p>
-        <h2>Vamos conversar</h2>
-        <p class="section-sub">Tem um projeto em mente ou quer bater um papo sobre tecnologia? Me chama em qualquer um dos canais abaixo.</p>
-      </div>
-
-      <div class="contact-grid">
-        <div class="contact-links reveal">
-          <a href="https://www.linkedin.com/in/jo%C3%A3o-vitor-navari-elias-santos" class="contact-link-card" target="_blank" rel="noopener">
-            <span class="contact-link-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
-            </span>
-            <span class="contact-link-text">
-              <span class="label">LinkedIn</span><br>
-              <span class="value">/in/joão-vitor-navari-elias-santos</span>
-            </span>
-          </a>
-
-          <a href="tel:+5544999297681" class="contact-link-card">
-            <span class="contact-link-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </span>
-            <span class="contact-link-text">
-              <span class="label">Telefone</span><br>
-              <span class="value">(44) 99929-7681</span>
-            </span>
-          </a>
-
-          <a href="https://github.com/joaonavari" class="contact-link-card" target="_blank" rel="noopener">
-            <span class="contact-link-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.2c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.49 0-.24-.01-1.03-.01-1.87-2.78.61-3.37-1.19-3.37-1.19-.45-1.17-1.11-1.48-1.11-1.48-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.55 2.34 1.1 2.91.84.09-.66.35-1.1.63-1.36-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5.01 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.2C22 6.58 17.52 2 12 2z"/></svg>
-            </span>
-            <span class="contact-link-text">
-              <span class="label">GitHub</span><br>
-              <span class="value">/joaonavari</span>
-            </span>
-          </a>
-
-          <a href="mailto:joaovitorne.16@gmail.com" class="contact-link-card">
-            <span class="contact-link-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
-            </span>
-            <span class="contact-link-text">
-              <span class="label">E-mail</span><br>
-              <span class="value">joaovitorne.16@gmail.com</span>
-            </span>
-          </a>
-        </div>
-
-        <!-- Formulário apenas de front-end. Para funcionar de verdade,
-             conecte a um serviço como Formspree, EmailJS ou um backend próprio. -->
-        <form class="contact-form reveal" id="contactForm">
-          <div class="form-row">
-            <label for="name">Nome</label>
-            <input type="text" id="name" name="name" placeholder="Seu nome" required>
-          </div>
-          <div class="form-row">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
-          </div>
-          <div class="form-row">
-            <label for="message">Mensagem</label>
-            <textarea id="message" name="message" placeholder="Conte um pouco sobre o seu projeto..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;">Enviar mensagem</button>
-          <p class="form-status" id="formStatus" aria-live="polite"></p>
-        </form>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ============================================
-     FOOTER
-     ============================================ -->
-<footer class="site-footer">
-  <div class="container footer-row">
-    <p>© <span id="year"></span> João Vitor Navari. Todos os direitos reservados.</p>
-    <a href="#top" class="back-to-top">voltar ao topo ↑</a>
-  </div>
-</footer>
-
-<script>
-(function(){
-  "use strict";
-
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* -------- Ano dinâmico no rodapé -------- */
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  /* -------- Foto de perfil: fallback caso "foto.jpg" ainda não exista -------- */
-  var avatarImg = document.getElementById('avatarImg');
-  if(avatarImg){
-    avatarImg.addEventListener('error', function(){
-      this.style.display = 'none'; // revela as iniciais "JV" no fundo
-    });
-  }
-
-  /* -------- Prints dos projetos: fallback caso a imagem ainda não exista -------- */
-  document.querySelectorAll('.project-thumb-img[data-fallback]').forEach(function(img){
-    img.addEventListener('error', function(){
-      this.style.display = 'none'; // revela o ícone/label por trás
-    });
-  });
-
-  /* -------- Menu mobile -------- */
-  var navToggle = document.getElementById('navToggle');
-  var navLinks = document.getElementById('navLinks');
-
-  navToggle.addEventListener('click', function(){
-    var isOpen = navLinks.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  });
-
-  navLinks.querySelectorAll('a').forEach(function(link){
-    link.addEventListener('click', function(){
-      navLinks.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  /* -------- Link ativo no menu conforme o scroll -------- */
-  var sections = document.querySelectorAll('main section[id]');
-  var navAnchors = document.querySelectorAll('.nav-links a');
-
-  var navObserver = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        var id = entry.target.getAttribute('id');
-        navAnchors.forEach(function(a){
-          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-        });
-      }
-    });
-  }, { rootMargin: '-45% 0px -50% 0px' });
-
-  sections.forEach(function(s){ navObserver.observe(s); });
-
-  /* -------- Scroll reveal -------- */
-  var revealEls = document.querySelectorAll('.reveal');
-
-  if(reduceMotion){
-    revealEls.forEach(function(el){ el.classList.add('in-view'); });
-  } else {
-    var revealObserver = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry, i){
-        if(entry.isIntersecting){
-          setTimeout(function(){ entry.target.classList.add('in-view'); }, i * 40);
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    revealEls.forEach(function(el){ revealObserver.observe(el); });
-  }
-
-  /* -------- Terminal: efeito de digitação -------- */
-  var terminalBody = document.getElementById('terminalBody');
-  var terminalScript = [
-    { type: 'cmd', path: '~', text: 'whoami' },
-    { type: 'out', text: '<strong>João Vitor Navari</strong>' },
-    { type: 'cmd', path: '~', text: 'cat foco.txt' },
-    { type: 'out', text: 'Desenvolvedor de Software Jr. — Eng. de Software @ UniCesumar' },
-    { type: 'cmd', path: '~', text: 'cat stack.json' },
-    { type: 'out', text: 'JavaScript · TypeScript · React' },
-    { type: 'cmd', path: '~', text: './status' },
-    { type: 'out', text: '🟢 disponível para novos projetos' }
-  ];
-
-  function renderTerminalInstant(){
-    var html = '';
-    terminalScript.forEach(function(line){
-      if(line.type === 'cmd'){
-        html += '<div class="terminal-line"><span class="terminal-prompt">visitante</span><span class="terminal-path">@portfolio:' + line.path + '$</span> ' + line.text + '</div>';
-      } else {
-        html += '<div class="terminal-line terminal-output">' + line.text + '</div>';
-      }
-    });
-    terminalBody.innerHTML = html;
-  }
-
-  function typeTerminal(){
-    var lineIndex = 0;
-    var charIndex = 0;
-
-    function nextChar(){
-      if(lineIndex >= terminalScript.length){
-        var cursor = document.createElement('span');
-        cursor.className = 'cursor';
-        terminalBody.appendChild(cursor);
-        return;
-      }
-
-      var line = terminalScript[lineIndex];
-      var lineEl = terminalBody.querySelector('[data-line="' + lineIndex + '"]');
-
-      if(!lineEl){
-        lineEl = document.createElement('div');
-        lineEl.setAttribute('data-line', lineIndex);
-        lineEl.className = line.type === 'cmd' ? 'terminal-line' : 'terminal-line terminal-output';
-        if(line.type === 'cmd'){
-          lineEl.innerHTML = '<span class="terminal-prompt">visitante</span><span class="terminal-path">@portfolio:' + line.path + '$</span> <span class="typed"></span>';
-        } else {
-          lineEl.innerHTML = '<span class="typed"></span>';
-        }
-        terminalBody.appendChild(lineEl);
-      }
-
-      var typedSpan = lineEl.querySelector('.typed');
-      var fullText = line.text;
-      var speed = line.type === 'cmd' ? 42 : 10;
-
-      if(line.type === 'out'){
-        // saídas aparecem por inteiro (mais natural para HTML com <strong>)
-        typedSpan.innerHTML = fullText;
-        lineIndex++;
-        charIndex = 0;
-        setTimeout(nextChar, 260);
-        return;
-      }
-
-      if(charIndex <= fullText.length){
-        typedSpan.textContent = fullText.slice(0, charIndex);
-        charIndex++;
-        setTimeout(nextChar, speed);
-      } else {
-        lineIndex++;
-        charIndex = 0;
-        setTimeout(nextChar, 320);
-      }
-    }
-
-    nextChar();
-  }
-
-  if(reduceMotion){
-    renderTerminalInstant();
-  } else {
-    typeTerminal();
-  }
-
-  /* -------- Formulário de contato (somente front-end) -------- */
-  var form = document.getElementById('contactForm');
-  var status = document.getElementById('formStatus');
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    // Este formulário ainda não está conectado a um backend/serviço de e-mail.
-    status.textContent = 'Mensagem pronta para envio — conecte este formulário a um serviço de e-mail (ex: Formspree ou EmailJS) para ativá-lo.';
-    form.reset();
-  });
-
-})();
-</script>
-
+  </footer>
 </body>
 </html>
