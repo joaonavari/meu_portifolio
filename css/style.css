@@ -160,8 +160,6 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -0.045em; }
 .project-featured:hover .project-image img, .project-secondary:hover .project-image img { transform: scale(1.012); }
 .project-image-featured { display: flex; align-items: center; min-height: 425px; padding: 22px; }
 .project-image-featured img { height: auto; border: 1px solid var(--project-image-border); border-radius: 4px; }
-.project-image-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; width: 100%; aspect-ratio: 16 / 9; padding: 16px; border: 1px solid var(--project-image-border); border-radius: 4px; color: var(--quiet); font: 500 11px/1.5 var(--font-mono); text-align: center; }
-.project-image-placeholder span:first-child { color: var(--muted); font-size: 18px; }
 .project-content { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(26px, 3.2vw, 48px); }
 .project-content .overline { color: var(--accent); }
 .project-index { color: var(--quiet); }
