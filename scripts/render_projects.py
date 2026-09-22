@@ -11,21 +11,30 @@ START = "        <!-- projects:start -->"
 END = "        <!-- projects:end -->"
 
 
-def browser_mockup(project):
+def shared_laptop():
+    return '''        <div class="projects-visual" hidden>
+          <figure class="project-laptop">
+            <div class="laptop-body">
+              <div class="laptop-lid">
+                <span class="laptop-camera" aria-hidden="true"></span>
+                <div class="laptop-screen"></div>
+              </div>
+              <div class="laptop-hinge" aria-hidden="true"></div>
+              <div class="laptop-base" aria-hidden="true"><span class="laptop-notch"></span></div>
+            </div>
+            <figcaption><span data-laptop-caption></span><span>Captura do projeto</span></figcaption>
+          </figure>
+        </div>'''
+
+
+def project_capture(project):
     image = project["image"]
     attrs = " ".join(f'{key}="{escape(value, quote=True)}"' for key, value in image.items())
     name = escape(project["name"])
+    project_id = escape(project["id"], quote=True)
     return f'''          <figure class="project-stage">
-            <div class="project-orbit" aria-hidden="true"></div>
-            <div class="project-depth">
-              <div class="project-browser">
-                <div class="project-browser-bar" aria-hidden="true">
-                  <span class="browser-dots"><i></i><i></i><i></i></span>
-                  <span class="browser-label">{name}</span>
-                  <span class="browser-mark">↗</span>
-                </div>
-                <img {attrs} sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
-              </div>
+            <div class="project-capture project-capture-{project_id}">
+              <img {attrs} sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
             </div>
             <figcaption><span>{name}</span><span>Captura do projeto</span></figcaption>
           </figure>'''
@@ -57,12 +66,13 @@ def project_scene(project, index, total):
     description = f'<p class="project-description">{escape(project["description"])}</p>' if project["description"] else ""
     technologies = "".join(f'<li>{escape(tech)}</li>' for tech in project["technologies"])
     return f'''        <article class="project-scene project-scene-{project_id}{featured}" aria-labelledby="{project_id}-title">
-          <div class="project-scene-heading"><span>{index:02d} / {total:02d}</span><span>{label}</span></div>
-{browser_mockup(project)}
+          <div class="project-light" aria-hidden="true"></div>
+{project_capture(project)}
           <div class="project-copy">
+            <div class="project-scene-heading"><span>{index:02d} / {total:02d}</span><span>{label}</span></div>
             <p class="overline" data-project-reveal>{escape(project["category"])}</p>
             <div data-project-reveal>
-              <h3 id="{project_id}-title">{escape(project["name"])}</h3>
+              <h3 id="{project_id}-title" tabindex="-1">{escape(project["name"])}</h3>
               {status}
             </div>
             <div data-project-reveal>
@@ -84,7 +94,7 @@ def main():
     html = path.read_text()
     before, remainder = html.split(START, 1)
     _, after = remainder.split(END, 1)
-    rendered = "\n\n".join(project_scene(project, index, len(projects)) for index, project in enumerate(projects, 1))
+    rendered = "\n\n".join([shared_laptop(), *(project_scene(project, index, len(projects)) for index, project in enumerate(projects, 1))])
     rendered = "\n".join(line.rstrip() for line in rendered.splitlines())
     updated = f"{before}{START}\n{rendered}\n{END}{after}"
     if args.check:

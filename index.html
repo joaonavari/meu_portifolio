@@ -150,8 +150,8 @@
     </section>
 
     <section class="section projects-section" id="projetos" aria-labelledby="projects-title">
-      <div class="container">
-        <div class="section-heading section-heading-split" data-reveal>
+      <div class="projects-sticky container">
+        <div class="section-heading section-heading-split projects-heading">
           <div>
             <p class="overline"><span class="section-number">03</span> / Projetos</p>
             <h2 id="projects-title">Projetos selecionados.</h2>
@@ -159,27 +159,43 @@
           <p>Aplicações que mostram diferentes etapas do meu aprendizado e da minha prática em desenvolvimento.</p>
         </div>
 
+        <div class="projects-toolbar" hidden>
+          <p class="projects-counter" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"><span data-project-current>01</span> / <span data-project-total>04</span><span class="projects-counter-name"> — DevFlow</span></p>
+          <div class="projects-navigation" role="group" aria-label="Navegar pelos projetos">
+            <button class="project-step" type="button" data-project-previous aria-label="Projeto anterior" aria-controls="projects-deck">←</button>
+            <button class="project-step" type="button" data-project-next aria-label="Próximo projeto" aria-controls="projects-deck">→</button>
+          </div>
+          <button class="projects-view-toggle" type="button">Ver em lista</button>
+        </div>
+        <div class="projects-deck" id="projects-deck">
         <!-- projects:start -->
-        <article class="project-scene project-scene-devflow project-scene-featured" aria-labelledby="devflow-title">
-          <div class="project-scene-heading"><span>01 / 04</span><span>Projeto em destaque</span></div>
-          <figure class="project-stage">
-            <div class="project-orbit" aria-hidden="true"></div>
-            <div class="project-depth">
-              <div class="project-browser">
-                <div class="project-browser-bar" aria-hidden="true">
-                  <span class="browser-dots"><i></i><i></i><i></i></span>
-                  <span class="browser-label">DevFlow</span>
-                  <span class="browser-mark">↗</span>
-                </div>
-                <img src="./assets/images/devflow.png" width="2906" height="1596" alt="Dashboard do DevFlow com indicadores de projetos, tarefas, horas registradas e financeiro" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
+        <div class="projects-visual" hidden>
+          <figure class="project-laptop">
+            <div class="laptop-body">
+              <div class="laptop-lid">
+                <span class="laptop-camera" aria-hidden="true"></span>
+                <div class="laptop-screen"></div>
               </div>
+              <div class="laptop-hinge" aria-hidden="true"></div>
+              <div class="laptop-base" aria-hidden="true"><span class="laptop-notch"></span></div>
+            </div>
+            <figcaption><span data-laptop-caption></span><span>Captura do projeto</span></figcaption>
+          </figure>
+        </div>
+
+        <article class="project-scene project-scene-devflow project-scene-featured" aria-labelledby="devflow-title">
+          <div class="project-light" aria-hidden="true"></div>
+          <figure class="project-stage">
+            <div class="project-capture project-capture-devflow">
+              <img src="./assets/images/devflow.png" width="2906" height="1596" alt="Dashboard do DevFlow com indicadores de projetos, tarefas, horas registradas e financeiro" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
             </div>
             <figcaption><span>DevFlow</span><span>Captura do projeto</span></figcaption>
           </figure>
           <div class="project-copy">
+            <div class="project-scene-heading"><span>01 / 04</span><span>Projeto em destaque</span></div>
             <p class="overline" data-project-reveal>Plataforma Full-stack</p>
             <div data-project-reveal>
-              <h3 id="devflow-title">DevFlow</h3>
+              <h3 id="devflow-title" tabindex="-1">DevFlow</h3>
               <p class="project-status"><span class="availability-dot" aria-hidden="true"></span>Em desenvolvimento</p>
             </div>
             <div data-project-reveal>
@@ -198,25 +214,18 @@
         </article>
 
         <article class="project-scene project-scene-rapidinha" aria-labelledby="rapidinha-title">
-          <div class="project-scene-heading"><span>02 / 04</span><span>Projeto selecionado</span></div>
+          <div class="project-light" aria-hidden="true"></div>
           <figure class="project-stage">
-            <div class="project-orbit" aria-hidden="true"></div>
-            <div class="project-depth">
-              <div class="project-browser">
-                <div class="project-browser-bar" aria-hidden="true">
-                  <span class="browser-dots"><i></i><i></i><i></i></span>
-                  <span class="browser-label">Rapidinha</span>
-                  <span class="browser-mark">↗</span>
-                </div>
-                <img src="./assets/images/rapidinha.jpg" srcset="./assets/images/rapidinha-800.jpg 800w, ./assets/images/rapidinha.jpg 1600w" width="1600" height="880" alt="Página do Rapidinha com apresentação do sistema de pedidos antecipados para cantinas" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
-              </div>
+            <div class="project-capture project-capture-rapidinha">
+              <img src="./assets/images/rapidinha.jpg" srcset="./assets/images/rapidinha-800.jpg 800w, ./assets/images/rapidinha.jpg 1600w" width="1600" height="880" alt="Página do Rapidinha com apresentação do sistema de pedidos antecipados para cantinas" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
             </div>
             <figcaption><span>Rapidinha</span><span>Captura do projeto</span></figcaption>
           </figure>
           <div class="project-copy">
+            <div class="project-scene-heading"><span>02 / 04</span><span>Projeto selecionado</span></div>
             <p class="overline" data-project-reveal>Aplicação web</p>
             <div data-project-reveal>
-              <h3 id="rapidinha-title">Rapidinha</h3>
+              <h3 id="rapidinha-title" tabindex="-1">Rapidinha</h3>
 
             </div>
             <div data-project-reveal>
@@ -235,25 +244,18 @@
         </article>
 
         <article class="project-scene project-scene-finance" aria-labelledby="finance-title">
-          <div class="project-scene-heading"><span>03 / 04</span><span>Projeto selecionado</span></div>
+          <div class="project-light" aria-hidden="true"></div>
           <figure class="project-stage">
-            <div class="project-orbit" aria-hidden="true"></div>
-            <div class="project-depth">
-              <div class="project-browser">
-                <div class="project-browser-bar" aria-hidden="true">
-                  <span class="browser-dots"><i></i><i></i><i></i></span>
-                  <span class="browser-label">API de Controle Financeiro</span>
-                  <span class="browser-mark">↗</span>
-                </div>
-                <img src="./assets/images/controle-financeiro.jpg" srcset="./assets/images/controle-financeiro-800.jpg 800w, ./assets/images/controle-financeiro.jpg 1200w" width="1200" height="938" alt="Documentação da API de Controle Financeiro com descrição da arquitetura e tecnologias" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
-              </div>
+            <div class="project-capture project-capture-finance">
+              <img src="./assets/images/controle-financeiro.jpg" srcset="./assets/images/controle-financeiro-800.jpg 800w, ./assets/images/controle-financeiro.jpg 1200w" width="1200" height="938" alt="Documentação da API de Controle Financeiro com descrição da arquitetura e tecnologias" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
             </div>
             <figcaption><span>API de Controle Financeiro</span><span>Captura do projeto</span></figcaption>
           </figure>
           <div class="project-copy">
+            <div class="project-scene-heading"><span>03 / 04</span><span>Projeto selecionado</span></div>
             <p class="overline" data-project-reveal>Back-end</p>
             <div data-project-reveal>
-              <h3 id="finance-title">API de Controle Financeiro</h3>
+              <h3 id="finance-title" tabindex="-1">API de Controle Financeiro</h3>
 
             </div>
             <div data-project-reveal>
@@ -272,25 +274,18 @@
         </article>
 
         <article class="project-scene project-scene-frontend" aria-labelledby="frontend-title">
-          <div class="project-scene-heading"><span>04 / 04</span><span>Projeto selecionado</span></div>
+          <div class="project-light" aria-hidden="true"></div>
           <figure class="project-stage">
-            <div class="project-orbit" aria-hidden="true"></div>
-            <div class="project-depth">
-              <div class="project-browser">
-                <div class="project-browser-bar" aria-hidden="true">
-                  <span class="browser-dots"><i></i><i></i><i></i></span>
-                  <span class="browser-label">Projetos básicos de Front-end</span>
-                  <span class="browser-mark">↗</span>
-                </div>
-                <img src="./assets/images/projetos-frontend.jpg" srcset="./assets/images/projetos-frontend-800.jpg 800w, ./assets/images/projetos-frontend.jpg 1200w" width="1200" height="654" alt="Página que reúne atividades de Front-end desenvolvidas durante a faculdade" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
-              </div>
+            <div class="project-capture project-capture-frontend">
+              <img src="./assets/images/projetos-frontend.jpg" srcset="./assets/images/projetos-frontend-800.jpg 800w, ./assets/images/projetos-frontend.jpg 1200w" width="1200" height="654" alt="Página que reúne atividades de Front-end desenvolvidas durante a faculdade" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
             </div>
             <figcaption><span>Projetos básicos de Front-end</span><span>Captura do projeto</span></figcaption>
           </figure>
           <div class="project-copy">
+            <div class="project-scene-heading"><span>04 / 04</span><span>Projeto selecionado</span></div>
             <p class="overline" data-project-reveal>Projetos acadêmicos</p>
             <div data-project-reveal>
-              <h3 id="frontend-title">Projetos básicos de Front-end</h3>
+              <h3 id="frontend-title" tabindex="-1">Projetos básicos de Front-end</h3>
 
             </div>
             <div data-project-reveal>
@@ -308,6 +303,8 @@
           </div>
         </article>
         <!-- projects:end -->
+        </div>
+        <div class="projects-progress" aria-hidden="true"><span></span></div>
       </div>
     </section>
 
