@@ -47,7 +47,7 @@ em uma linha do tempo com uma unidade por projeto:
   para a seção Stack. A rolagem para cima reverte a apresentação.
 
 O indicador, os botões anterior/próximo e a opção **Ver em lista** permitem
-navegação sem depender do gesto de rolar. Na apresentação, somente o projeto
+navegação sem depender do gesto de rolar. Na apresentação de desktop, somente o projeto
 ativo participa da navegação por teclado e da árvore de acessibilidade; os
 controles permitem acessar todos. Na lista, todos ficam acessíveis em ordem.
 
@@ -55,10 +55,20 @@ A inclinação afeta o laptop inteiro e responde apenas ao mouse em telas acima 
 1000 px, com interpolação via `requestAnimationFrame`, e somente durante a leitura.
 A documentação da API usa `object-fit: contain` para preservar a captura inteira.
 Em tablets, a intensidade da animação é reduzida.
-Abaixo de 768 px ou em janelas sem espaço suficiente,
-há uma lista de altura natural com entradas curtas. `prefers-reduced-motion`
-também restaura a lista e desativa todos os movimentos da seção, inclusive quando
-a preferência muda durante a visita. A rolagem permanece nativa em todos os modos.
+
+Abaixo de 768 px, o mesmo laptop fica sticky abaixo do cabeçalho, com os controles
+acima da tela. Os textos passam abaixo dele em fluxo normal, mantendo todas as
+descrições, tecnologias e ações acessíveis. A posição de cada artigo determina a
+troca da captura e do contador, nos dois sentidos da rolagem. Anterior/próximo
+leva ao começo do texto correspondente; **Ver em lista** restaura os laptops
+individuais e permite retornar à apresentação. Não há inclinação pelo toque,
+rolagem interna nem altura artificial para prolongar a apresentação móvel.
+
+Se não restarem pelo menos 220 px para leitura abaixo do laptop, a lista é usada
+automaticamente, inclusive em celulares na horizontal. Janelas de desktop sem
+espaço suficiente também usam a lista. `prefers-reduced-motion` restaura a lista
+e desativa todos os movimentos da seção, inclusive quando a preferência muda
+durante a visita. A rolagem permanece nativa em todos os modos.
 
 O controlador só escuta rolagem enquanto a seção está próxima da tela, agrupa
 atualizações com `requestAnimationFrame`, mede novamente ao redimensionar a janela

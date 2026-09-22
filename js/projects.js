@@ -47,6 +47,7 @@
   let stopInteraction = () => {};
   let layoutFrame = 0;
   let story = false;
+  let mobileStory = false;
   let listRequested = false;
   let activeIndex = 0;
   let metrics = null;
@@ -110,15 +111,15 @@
     const changed = index !== activeIndex || !projects[index].element.classList.contains("is-active");
     if (!changed) return;
     const focused = document.activeElement;
-    if (projects.some((project) => project.index !== index && project.element.contains(focused))) {
+    if (!mobileStory && projects.some((project) => project.index !== index && project.element.contains(focused))) {
       counter.focus({ preventScroll: true });
     }
     activeIndex = index;
     projects.forEach((project) => {
       const active = project.index === index;
       project.element.classList.toggle("is-active", active);
-      project.element.inert = !active;
-      project.element.setAttribute("aria-hidden", String(!active));
+      project.element.inert = !mobileStory && !active;
+      if (!mobileStory) project.element.setAttribute("aria-hidden", String(!active));
       project.capture.setAttribute("aria-hidden", String(!active));
     });
     laptopCaption.textContent = projects[index].title.textContent;
@@ -135,8 +136,9 @@
   function restoreFlow() {
     stopInteraction();
     stopInteraction = () => {};
-    section.classList.remove("is-story");
-    ["--story-height", "--story-top", "--deck-height", "--story-progress"].forEach((property) => section.style.removeProperty(property));
+    section.classList.remove("is-story", "is-mobile-story");
+    ["--story-height", "--story-top", "--deck-height", "--story-progress", "--mobile-visual-height"].forEach((property) => section.style.removeProperty(property));
+    if (toolbar.parentElement !== sticky) sticky.insertBefore(toolbar, deck);
     projects.forEach((project) => {
       project.element.inert = false;
       project.element.removeAttribute("aria-hidden");
@@ -158,6 +160,103 @@
     laptopBody.removeAttribute("style");
     laptop.removeAttribute("aria-describedby");
     story = false;
+    mobileStory = false;
+  }
+
+  function measureMobileStory() {
+    const top = header.getBoundingClientRect().height;
+    section.style.setProperty("--story-top", `${top}px`);
+    section.classList.add("is-mobile-story");
+    projects.forEach((project) => {
+      screen.append(project.capture);
+      project.image.loading = "eager";
+    });
+    visual.prepend(toolbar);
+    visual.hidden = false;
+    toolbar.hidden = counter.hidden = navigation.hidden = false;
+    viewToggle.textContent = "Ver em lista";
+    const visualHeight = visual.offsetHeight;
+    section.style.setProperty("--mobile-visual-height", `${visualHeight}px`);
+    const readingHeight = window.innerHeight - top - visualHeight;
+    // A short landscape window or enlarged text should remain an ordinary list.
+    if (readingHeight < 220 || !imagesReady() || toolbar.scrollWidth > toolbar.clientWidth + 1) return false;
+    const targets = projects.map((project) => project.element.getBoundingClientRect().top + window.scrollY - top - visualHeight);
+    metrics = {
+      start: targets[0],
+      distance: Math.max(1, targets.at(-1) - targets[0] + projects.at(-1).element.offsetHeight - readingHeight),
+      targets,
+      transition: Math.min(96, readingHeight * .25),
+      top: top + visualHeight
+    };
+    return true;
+  }
+
+  function startMobileStory() {
+    const controller = new AbortController();
+    const { signal } = controller;
+    let frame = 0;
+    let focusFrame = 0;
+    let listening = false;
+
+    function update() {
+      frame = 0;
+      try {
+        const scroll = window.scrollY;
+        let index = 0;
+        projects.forEach((project, i) => {
+          const entry = i === 0 ? 1 : ease(clamp((scroll - metrics.targets[i] + metrics.transition) / metrics.transition));
+          const exit = i === projects.length - 1 ? 0 : ease(clamp((scroll - metrics.targets[i + 1] + metrics.transition) / metrics.transition));
+          if (entry >= .5) index = i;
+          project.capture.classList.toggle("is-present", entry > 0 && exit < 1);
+          project.capture.style.setProperty("--screen-opacity", String(entry));
+          project.capture.style.setProperty("--screen-scale", String(1 + (1 - entry) * .02 - exit * .01));
+        });
+        setActive(index);
+        section.style.setProperty("--story-progress", String(clamp((scroll - metrics.start) / metrics.distance)));
+      } catch (error) {
+        restoreFlow();
+        throw error;
+      }
+    }
+
+    function schedule() {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !listening) {
+        window.addEventListener("scroll", schedule, { passive: true, signal });
+        listening = true;
+        schedule();
+      } else if (!entry.isIntersecting && listening) {
+        window.removeEventListener("scroll", schedule);
+        listening = false;
+        window.cancelAnimationFrame(frame);
+        frame = 0;
+      }
+    }, { rootMargin: "100% 0px" });
+    observer.observe(section);
+    // Keep keyboard focus below the pinned laptop, including links reached by Tab.
+    deck.addEventListener("focusin", (event) => {
+      if (!event.target.closest(".project-copy")) return;
+      window.cancelAnimationFrame(focusFrame);
+      focusFrame = window.requestAnimationFrame(() => {
+        focusFrame = 0;
+        if (document.activeElement !== event.target) return;
+        const bounds = event.target.getBoundingClientRect();
+        const offset = bounds.top < metrics.top + 12
+          ? bounds.top - metrics.top - 12
+          : Math.max(0, bounds.bottom - window.innerHeight + 12);
+        if (offset) window.scrollBy({ top: offset, behavior: "instant" });
+      });
+    }, { signal });
+    stopInteraction = () => {
+      controller.abort();
+      observer.disconnect();
+      window.cancelAnimationFrame(frame);
+      window.cancelAnimationFrame(focusFrame);
+    };
+    update();
   }
 
   function measureStory() {
@@ -321,17 +420,33 @@
   function configure() {
     layoutFrame = 0;
     const wasStory = story;
+    const wasMobileStory = mobileStory;
+    const previousIndex = activeIndex;
     const withinStory = wasStory && window.scrollY >= metrics.start && window.scrollY <= metrics.start + metrics.distance;
     const oldProgress = withinStory ? clamp((window.scrollY - metrics.start) / metrics.distance) : 0;
+    const oldProjectOffset = wasMobileStory ? window.scrollY - metrics.targets[previousIndex] : 0;
     restoreFlow();
     try {
-      if (!reducedMotion.matches && window.innerWidth >= SETTINGS.minWidth && !listRequested && measureStory()) {
+      const canPresent = !reducedMotion.matches && !listRequested;
+      if (canPresent && window.innerWidth < SETTINGS.minWidth && measureMobileStory()) {
+        story = mobileStory = true;
+        if (withinStory) {
+          // Mobile browser bars resize the viewport during scrolling. Preserve
+          // the place in the text instead of rescaling its overall progress.
+          const top = metrics.targets[previousIndex] + (wasMobileStory ? oldProjectOffset : 0);
+          window.scrollTo({ top, behavior: "instant" });
+        }
+        startMobileStory();
+      } else if (canPresent && window.innerWidth >= SETTINGS.minWidth && measureStory()) {
         story = true;
-        if (withinStory) window.scrollTo({ top: metrics.start + oldProgress * metrics.distance, behavior: "instant" });
+        if (withinStory) {
+          const progress = wasMobileStory ? (previousIndex + (1 - SETTINGS.transition) / 2) / metrics.units : oldProgress;
+          window.scrollTo({ top: metrics.start + progress * metrics.distance, behavior: "instant" });
+        }
         startStory();
       } else {
         restoreFlow();
-        if (listRequested && !reducedMotion.matches && window.innerWidth >= SETTINGS.minWidth) {
+        if (listRequested && !reducedMotion.matches) {
           toolbar.hidden = false;
           navigation.hidden = true;
           counter.hidden = true;
@@ -360,7 +475,12 @@
 
   function goToProject(index) {
     if (!story) return;
-    const readingTime = Math.max(0, Math.min(projects.length - 1, index)) + (1 - SETTINGS.transition) / 2;
+    const targetIndex = Math.max(0, Math.min(projects.length - 1, index));
+    if (mobileStory) {
+      window.scrollTo({ top: metrics.targets[targetIndex], behavior: "instant" });
+      return;
+    }
+    const readingTime = targetIndex + (1 - SETTINGS.transition) / 2;
     window.scrollTo({ top: metrics.start + readingTime / metrics.units * metrics.distance, behavior: "instant" });
   }
 
@@ -370,10 +490,11 @@
     if (!story && imagesReady()) scheduleLayout();
   }, { signal: lifetime.signal }));
   viewToggle.addEventListener("click", () => {
+    const selectedIndex = activeIndex;
     listRequested = !listRequested;
     configure();
     if (story) {
-      goToProject(activeIndex);
+      goToProject(selectedIndex);
       counter.focus({ preventScroll: true });
     }
   }, { signal: lifetime.signal });
