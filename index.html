@@ -22,7 +22,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/projects.css">
   <script src="./js/main.js" defer></script>
+  <script src="./js/projects.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#top">Pular para o conteúdo</a>
@@ -157,72 +159,155 @@
           <p>Aplicações que mostram diferentes etapas do meu aprendizado e da minha prática em desenvolvimento.</p>
         </div>
 
-        <article class="project-featured" aria-labelledby="devflow-title" data-reveal>
-          <div class="project-image project-image-featured">
-            <img src="./assets/images/devflow.png" width="2906" height="1596" alt="Dashboard do DevFlow com indicadores de projetos, tarefas, horas registradas e financeiro" loading="lazy" decoding="async">
-          </div>
-          <div class="project-content">
-            <p class="overline">Projeto em destaque <span class="project-index">/ 01</span></p>
-            <h3 id="devflow-title">DevFlow</h3>
-            <p class="availability project-status">Em desenvolvimento</p>
-            <p class="project-summary">Plataforma Full Stack para freelancers gerenciarem clientes, projetos, tarefas, horas e financeiro em um único ambiente.</p>
-            <p class="project-description">Reúne tarefas em Kanban, progresso automático ou manual, registro de horas, cobranças e métricas em um dashboard. Conta com autenticação e sessões, isolamento de dados entre usuários, interface responsiva e portal público seguro para acompanhamento pelo cliente.</p>
-            <ul class="technology-list" aria-label="Categoria e tecnologias do DevFlow"><li>Full Stack</li><li>React</li><li>TypeScript</li><li>Node.js</li><li>PostgreSQL</li><li>Vite</li><li>Express</li><li>Prisma</li><li>TanStack Query</li><li>React Hook Form</li><li>Zod</li><li>dnd-kit</li></ul>
-            <div class="project-actions">
-              <a href="https://github.com/joaonavari/devflow" target="_blank" rel="noopener noreferrer">Código no GitHub <span aria-hidden="true">↗</span></a>
+        <!-- projects:start -->
+        <article class="project-scene project-scene-devflow project-scene-featured" aria-labelledby="devflow-title">
+          <div class="project-scene-heading"><span>01 / 04</span><span>Projeto em destaque</span></div>
+          <figure class="project-stage">
+            <div class="project-orbit" aria-hidden="true"></div>
+            <div class="project-depth">
+              <div class="project-browser">
+                <div class="project-browser-bar" aria-hidden="true">
+                  <span class="browser-dots"><i></i><i></i><i></i></span>
+                  <span class="browser-label">DevFlow</span>
+                  <span class="browser-mark">↗</span>
+                </div>
+                <img src="./assets/images/devflow.png" width="2906" height="1596" alt="Dashboard do DevFlow com indicadores de projetos, tarefas, horas registradas e financeiro" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
+              </div>
+            </div>
+            <figcaption><span>DevFlow</span><span>Captura do projeto</span></figcaption>
+          </figure>
+          <div class="project-copy">
+            <p class="overline" data-project-reveal>Plataforma Full-stack</p>
+            <div data-project-reveal>
+              <h3 id="devflow-title">DevFlow</h3>
+              <p class="project-status"><span class="availability-dot" aria-hidden="true"></span>Em desenvolvimento</p>
+            </div>
+            <div data-project-reveal>
+              <p class="project-summary">Plataforma Full Stack para freelancers gerenciarem clientes, projetos, tarefas, horas e pagamentos em um único ambiente.</p>
+              <p class="project-description">Reúne tarefas em Kanban, progresso automático ou manual, registro de horas, cobranças e métricas em um dashboard. Conta com autenticação e sessões, isolamento de dados entre usuários, interface responsiva e portal público seguro para acompanhamento pelo cliente.</p>
+            </div>
+            <ul class="technology-list" aria-label="Tecnologias: DevFlow" data-project-reveal><li>Full Stack</li><li>React</li><li>TypeScript</li><li>Node.js</li><li>PostgreSQL</li><li>Vite</li><li>Express</li><li>Prisma</li><li>TanStack Query</li><li>React Hook Form</li><li>Zod</li><li>dnd-kit</li></ul>
+            <div class="project-action-group" data-project-reveal>
+              <div class="project-actions">
+                <button class="button project-demo-unavailable" type="button" disabled aria-describedby="devflow-demo-note">Ver projeto <span aria-hidden="true">↗</span></button>
+                <a class="button button-secondary" href="https://github.com/joaonavari/devflow" target="_blank" rel="noopener noreferrer" aria-label="Ver código: DevFlow">Ver código <span aria-hidden="true">↗</span></a>
+              </div>
+              <p class="project-demo-note" id="devflow-demo-note">Demonstração ainda não publicada.</p>
             </div>
           </div>
         </article>
 
-        <article class="project-featured" aria-labelledby="rapidinha-title" data-reveal>
-          <div class="project-image project-image-featured">
-            <img src="./assets/images/rapidinha.jpg" srcset="./assets/images/rapidinha-800.jpg 800w, ./assets/images/rapidinha.jpg 1600w" sizes="(max-width: 760px) 100vw, 60vw" width="1600" height="880" alt="Página do Rapidinha com apresentação do sistema de pedidos antecipados para cantinas" loading="lazy" decoding="async">
-          </div>
-          <div class="project-content">
-            <p class="overline">Projeto em destaque <span class="project-index">/ 02</span></p>
-            <h3 id="rapidinha-title">Rapidinha</h3>
-            <p class="project-summary">Pedidos antecipados para cantinas escolares.</p>
-            <p class="project-description">Plataforma para otimizar o atendimento em cantinas e lanchonetes: alunos fazem pedidos e escolhem o horário de retirada antes de chegar, reduzindo filas.</p>
-            <ul class="technology-list" aria-label="Tecnologias do Rapidinha"><li>React</li><li>JavaScript</li></ul>
-            <div class="project-actions">
-              <a href="https://joaonavari.github.io/rapidinha-home/" target="_blank" rel="noopener noreferrer">Ver projeto <span aria-hidden="true">↗</span></a>
-              <a href="https://github.com/joaonavari/rapidinha-home" target="_blank" rel="noopener noreferrer">Código no GitHub <span aria-hidden="true">↗</span></a>
+        <article class="project-scene project-scene-rapidinha" aria-labelledby="rapidinha-title">
+          <div class="project-scene-heading"><span>02 / 04</span><span>Projeto selecionado</span></div>
+          <figure class="project-stage">
+            <div class="project-orbit" aria-hidden="true"></div>
+            <div class="project-depth">
+              <div class="project-browser">
+                <div class="project-browser-bar" aria-hidden="true">
+                  <span class="browser-dots"><i></i><i></i><i></i></span>
+                  <span class="browser-label">Rapidinha</span>
+                  <span class="browser-mark">↗</span>
+                </div>
+                <img src="./assets/images/rapidinha.jpg" srcset="./assets/images/rapidinha-800.jpg 800w, ./assets/images/rapidinha.jpg 1600w" width="1600" height="880" alt="Página do Rapidinha com apresentação do sistema de pedidos antecipados para cantinas" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
+              </div>
+            </div>
+            <figcaption><span>Rapidinha</span><span>Captura do projeto</span></figcaption>
+          </figure>
+          <div class="project-copy">
+            <p class="overline" data-project-reveal>Aplicação web</p>
+            <div data-project-reveal>
+              <h3 id="rapidinha-title">Rapidinha</h3>
+
+            </div>
+            <div data-project-reveal>
+              <p class="project-summary">Pedidos antecipados para cantinas escolares.</p>
+              <p class="project-description">Plataforma para otimizar o atendimento em cantinas e lanchonetes: alunos fazem pedidos e escolhem o horário de retirada antes de chegar, reduzindo filas.</p>
+            </div>
+            <ul class="technology-list" aria-label="Tecnologias: Rapidinha" data-project-reveal><li>React</li><li>JavaScript</li></ul>
+            <div class="project-action-group" data-project-reveal>
+              <div class="project-actions">
+                <a class="button button-primary" href="https://joaonavari.github.io/rapidinha-home/" target="_blank" rel="noopener noreferrer" aria-label="Ver projeto: Rapidinha">Ver projeto <span aria-hidden="true">↗</span></a>
+                <a class="button button-secondary" href="https://github.com/joaonavari/rapidinha-home" target="_blank" rel="noopener noreferrer" aria-label="Ver código: Rapidinha">Ver código <span aria-hidden="true">↗</span></a>
+              </div>
+
             </div>
           </div>
         </article>
 
-        <div class="project-grid">
-          <article class="project-secondary" aria-labelledby="finance-title" data-reveal>
-            <div class="project-image">
-              <img src="./assets/images/controle-financeiro.jpg" srcset="./assets/images/controle-financeiro-800.jpg 800w, ./assets/images/controle-financeiro.jpg 1200w" sizes="(max-width: 760px) 100vw, 46vw" width="1200" height="938" alt="Documentação da API de Controle Financeiro com descrição da arquitetura e tecnologias" loading="lazy" decoding="async">
+        <article class="project-scene project-scene-finance" aria-labelledby="finance-title">
+          <div class="project-scene-heading"><span>03 / 04</span><span>Projeto selecionado</span></div>
+          <figure class="project-stage">
+            <div class="project-orbit" aria-hidden="true"></div>
+            <div class="project-depth">
+              <div class="project-browser">
+                <div class="project-browser-bar" aria-hidden="true">
+                  <span class="browser-dots"><i></i><i></i><i></i></span>
+                  <span class="browser-label">API de Controle Financeiro</span>
+                  <span class="browser-mark">↗</span>
+                </div>
+                <img src="./assets/images/controle-financeiro.jpg" srcset="./assets/images/controle-financeiro-800.jpg 800w, ./assets/images/controle-financeiro.jpg 1200w" width="1200" height="938" alt="Documentação da API de Controle Financeiro com descrição da arquitetura e tecnologias" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
+              </div>
             </div>
-            <div class="project-secondary-info">
-              <p class="overline">Back-end <span class="project-index">/ 03</span></p>
+            <figcaption><span>API de Controle Financeiro</span><span>Captura do projeto</span></figcaption>
+          </figure>
+          <div class="project-copy">
+            <p class="overline" data-project-reveal>Back-end</p>
+            <div data-project-reveal>
               <h3 id="finance-title">API de Controle Financeiro</h3>
-              <p>API RESTful para gestão de finanças pessoais, com padrão DTO, Bean Validation e tratamento centralizado de erros.</p>
-              <ul class="technology-list" aria-label="Tecnologias da API de Controle Financeiro"><li>Java</li><li>Spring Boot</li><li>PostgreSQL</li></ul>
-              <div class="project-actions">
-                <a href="https://github.com/joaonavari/controle-financeiro" target="_blank" rel="noopener noreferrer">Código no GitHub <span aria-hidden="true">↗</span></a>
-              </div>
-            </div>
-          </article>
 
-          <article class="project-secondary" aria-labelledby="frontend-title" data-reveal>
-            <div class="project-image">
-              <img src="./assets/images/projetos-frontend.jpg" srcset="./assets/images/projetos-frontend-800.jpg 800w, ./assets/images/projetos-frontend.jpg 1200w" sizes="(max-width: 760px) 100vw, 46vw" width="1200" height="654" alt="Página que reúne atividades de Front-end desenvolvidas durante a faculdade" loading="lazy" decoding="async">
             </div>
-            <div class="project-secondary-info">
-              <p class="overline">Projetos acadêmicos <span class="project-index">/ 04</span></p>
-              <h3 id="frontend-title">Projetos básicos de Front-end</h3>
-              <p>Projetos feitos durante a matéria de Front-end da faculdade, explorando interfaces, responsividade e diferentes tecnologias web.</p>
-              <ul class="technology-list" aria-label="Tecnologias dos projetos de Front-end"><li>React</li><li>TypeScript</li><li>HTML</li><li>CSS</li></ul>
+            <div data-project-reveal>
+              <p class="project-summary">API RESTful para gestão de finanças pessoais, com padrão DTO, Bean Validation e tratamento centralizado de erros.</p>
+
+            </div>
+            <ul class="technology-list" aria-label="Tecnologias: API de Controle Financeiro" data-project-reveal><li>Java</li><li>Spring Boot</li><li>PostgreSQL</li></ul>
+            <div class="project-action-group" data-project-reveal>
               <div class="project-actions">
-                <a href="https://joaonavari.github.io/Projetos_FrontEND_ENGSFTW/" target="_blank" rel="noopener noreferrer">Ver projeto <span aria-hidden="true">↗</span></a>
-                <a href="https://github.com/joaonavari/Projetos_FrontEND_ENGSFTW.git" target="_blank" rel="noopener noreferrer">Código no GitHub <span aria-hidden="true">↗</span></a>
+                <button class="button project-demo-unavailable" type="button" disabled aria-describedby="finance-demo-note">Ver projeto <span aria-hidden="true">↗</span></button>
+                <a class="button button-secondary" href="https://github.com/joaonavari/controle-financeiro" target="_blank" rel="noopener noreferrer" aria-label="Ver código: API de Controle Financeiro">Ver código <span aria-hidden="true">↗</span></a>
+              </div>
+              <p class="project-demo-note" id="finance-demo-note">Demonstração ainda não publicada.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-scene project-scene-frontend" aria-labelledby="frontend-title">
+          <div class="project-scene-heading"><span>04 / 04</span><span>Projeto selecionado</span></div>
+          <figure class="project-stage">
+            <div class="project-orbit" aria-hidden="true"></div>
+            <div class="project-depth">
+              <div class="project-browser">
+                <div class="project-browser-bar" aria-hidden="true">
+                  <span class="browser-dots"><i></i><i></i><i></i></span>
+                  <span class="browser-label">Projetos básicos de Front-end</span>
+                  <span class="browser-mark">↗</span>
+                </div>
+                <img src="./assets/images/projetos-frontend.jpg" srcset="./assets/images/projetos-frontend-800.jpg 800w, ./assets/images/projetos-frontend.jpg 1200w" width="1200" height="654" alt="Página que reúne atividades de Front-end desenvolvidas durante a faculdade" sizes="(max-width: 1000px) 90vw, 55vw" loading="lazy" decoding="async">
               </div>
             </div>
-          </article>
-        </div>
+            <figcaption><span>Projetos básicos de Front-end</span><span>Captura do projeto</span></figcaption>
+          </figure>
+          <div class="project-copy">
+            <p class="overline" data-project-reveal>Projetos acadêmicos</p>
+            <div data-project-reveal>
+              <h3 id="frontend-title">Projetos básicos de Front-end</h3>
+
+            </div>
+            <div data-project-reveal>
+              <p class="project-summary">Projetos feitos durante a matéria de Front-end da faculdade, explorando interfaces, responsividade e diferentes tecnologias web.</p>
+
+            </div>
+            <ul class="technology-list" aria-label="Tecnologias: Projetos básicos de Front-end" data-project-reveal><li>React</li><li>TypeScript</li><li>HTML</li><li>CSS</li></ul>
+            <div class="project-action-group" data-project-reveal>
+              <div class="project-actions">
+                <a class="button button-primary" href="https://joaonavari.github.io/Projetos_FrontEND_ENGSFTW/" target="_blank" rel="noopener noreferrer" aria-label="Ver projeto: Projetos básicos de Front-end">Ver projeto <span aria-hidden="true">↗</span></a>
+                <a class="button button-secondary" href="https://github.com/joaonavari/Projetos_FrontEND_ENGSFTW.git" target="_blank" rel="noopener noreferrer" aria-label="Ver código: Projetos básicos de Front-end">Ver código <span aria-hidden="true">↗</span></a>
+              </div>
+
+            </div>
+          </div>
+        </article>
+        <!-- projects:end -->
       </div>
     </section>
 
