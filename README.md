@@ -1,9 +1,67 @@
 # Portfólio — João Vitor Navari
 
-Site estático em HTML, CSS e JavaScript, sem dependências de aplicação.
-Para visualizar, abra `index.html` ou execute `python3 -m http.server 8000`.
+Meu portfólio pessoal, com projetos, trajetória profissional, tecnologias e
+canais de contato. Sou estudante de Engenharia de Software na UniCesumar,
+desenvolvedor front-end freelancer e tenho experiência em infraestrutura de TI.
 
-## Projetos
+**Acesse o portfólio: [joaonavari.com](https://joaonavari.com/)**
+
+O site é construído com HTML, CSS e JavaScript puro, sem framework, bundler ou
+dependências de aplicação. Python é usado apenas para gerar o HTML da seção de
+projetos durante a manutenção.
+
+## Destaques da versão atual
+
+- Domínio próprio `joaonavari.com`, definido no arquivo `CNAME`.
+- Interface reformulada, com layout responsivo e temas claro e escuro. A
+  preferência de tema é salva no navegador.
+- DevFlow em destaque, com captura do dashboard e detalhes da plataforma.
+- Projetos apresentados em um laptop compartilhado, com troca das capturas por
+  rolagem, controles anterior/próximo e opção **Ver em lista**.
+- Apresentação adaptada para celulares, mantendo o laptop fixo enquanto os
+  textos dos projetos seguem em fluxo normal.
+- Navegação por teclado, respeito à preferência de movimento reduzido e lista
+  estática disponível quando a apresentação não pode ser ativada.
+
+## Projetos apresentados
+
+| Projeto | Descrição | Código | Demonstração |
+| --- | --- | --- | --- |
+| **DevFlow** | Plataforma Full Stack para gestão de clientes, projetos, tarefas, horas e pagamentos de freelancers. Em desenvolvimento. | [Repositório](https://github.com/joaonavari/devflow) | Ainda não publicada |
+| **Rapidinha** | Pedidos antecipados para cantinas escolares. | [Repositório](https://github.com/joaonavari/rapidinha-home) | [Acessar](https://joaonavari.github.io/rapidinha-home/) |
+| **API de Controle Financeiro** | API RESTful para finanças pessoais, com Java, Spring Boot e PostgreSQL. | [Repositório](https://github.com/joaonavari/controle-financeiro) | Ainda não publicada |
+| **Projetos básicos de Front-end** | Projetos acadêmicos com React, TypeScript, HTML e CSS. | [Repositório](https://github.com/joaonavari/Projetos_FrontEND_ENGSFTW) | [Acessar](https://joaonavari.github.io/Projetos_FrontEND_ENGSFTW/) |
+
+## Executar localmente
+
+Abra `index.html` no navegador ou, na raiz do repositório, inicie um servidor
+estático com Python 3:
+
+```sh
+python3 -m http.server 8000
+```
+
+Depois, acesse [localhost:8000](http://localhost:8000). Não há etapa de instalação
+de pacotes ou build da aplicação.
+
+## Estrutura do projeto
+
+```text
+.
+├── index.html                 # Página principal e seção de projetos gerada
+├── CNAME                      # Domínio próprio
+├── assets/images/             # Capturas dos projetos e imagens do site
+├── css/
+│   ├── style.css              # Estilos gerais e temas
+│   └── projects.css           # Layout e apresentação dos projetos
+├── js/
+│   ├── main.js                # Tema, menu e navegação
+│   └── projects.js            # Apresentação dos projetos por rolagem
+├── data/projects.json         # Dados dos projetos
+└── scripts/render_projects.py # Gerador do HTML dos projetos
+```
+
+## Atualizar os projetos
 
 - `data/projects.json`: conteúdo, imagens, tecnologias e URLs. Uma demonstração sem URL usa `null`.
 - `scripts/render_projects.py`: componentes reutilizáveis que geram os mockups, ações e apresentações no HTML.
@@ -75,6 +133,15 @@ atualizações com `requestAnimationFrame`, mede novamente ao redimensionar a ja
 e após carregar as fontes, e remove listeners, observadores e animações ao sair.
 Sem JavaScript, todos os projetos permanecem em fluxo normal. Se houver uma falha
 durante a configuração ou a animação, o controlador restaura esse fluxo.
+
+## Domínio e publicação
+
+O arquivo `CNAME` contém o domínio `joaonavari.com` e deve acompanhar os arquivos
+do site na publicação. Se o domínio mudar, atualize também o link neste README.
+
+Publique `index.html`, `css/`, `js/` e `assets/`, mantendo os caminhos relativos.
+Quando houver alterações em `data/projects.json` ou no gerador, gere e verifique
+o HTML antes de publicar. O servidor precisa servir apenas arquivos estáticos.
 
 ## Verificação local
 
