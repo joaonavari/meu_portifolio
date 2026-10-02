@@ -29,6 +29,7 @@ projetos durante a manutenção.
 | --- | --- | --- | --- |
 | **DevFlow** | Plataforma Full Stack para gestão de clientes, projetos, tarefas, horas e pagamentos de freelancers. Em desenvolvimento. | [Repositório](https://github.com/joaonavari/devflow) | Ainda não publicada |
 | **Rapidinha** | Pedidos antecipados para cantinas escolares. | [Repositório](https://github.com/joaonavari/rapidinha-home) | [Acessar](https://joaonavari.github.io/rapidinha-home/) |
+| **Placa** | Controle de vendas, compras e lucro para plaquinhas Google com NFC, com dados salvos no navegador. | [Repositório](https://github.com/joaonavari/Vendas_Pr) | [Acessar](https://joaonavari.github.io/Vendas_Pr/) |
 | **API de Controle Financeiro** | API RESTful para finanças pessoais, com Java, Spring Boot e PostgreSQL. | [Repositório](https://github.com/joaonavari/controle-financeiro) | Ainda não publicada |
 | **Projetos básicos de Front-end** | Projetos acadêmicos com React, TypeScript, HTML e CSS. | [Repositório](https://github.com/joaonavari/Projetos_FrontEND_ENGSFTW) | [Acessar](https://joaonavari.github.io/Projetos_FrontEND_ENGSFTW/) |
 
@@ -86,7 +87,7 @@ compartilhado. Ativa a apresentação somente se todos couberem na área útil, 
 rolagem interna, e todas as capturas estiverem carregadas. Durante o carregamento
 ou se uma imagem falhar, a lista continua disponível.
 O contêiner externo determina a duração; o contêiner interno fica sticky, 16 px
-abaixo do cabeçalho. Os quatro projetos compartilham um único laptop em HTML/CSS,
+abaixo do cabeçalho. Os cinco projetos compartilham um único laptop em HTML/CSS,
 com moldura, câmera, dobradiça e base, ao lado do texto em duas colunas.
 O título fica visível ao acessar `#projetos`, com DevFlow já em estado de leitura.
 
