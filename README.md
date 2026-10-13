@@ -27,7 +27,7 @@ projetos durante a manutenção.
 
 | Projeto | Descrição | Código | Demonstração |
 | --- | --- | --- | --- |
-| **DevFlow** | Plataforma Full Stack para gestão de clientes, projetos, tarefas, horas e pagamentos de freelancers. Em desenvolvimento. | [Repositório](https://github.com/joaonavari/devflow) | Ainda não publicada |
+| **DevFlow** | Plataforma Full Stack para gestão de clientes, projetos, tarefas, horas e pagamentos de freelancers. Em desenvolvimento. | [Repositório](https://github.com/joaonavari/devflow) | [Landing](https://joaonavari.github.io/devflow/) |
 | **USEGET** | Landing page da minha marca de placas NFC + QR Code para comércios, com catálogo dinâmico e pedidos pelo WhatsApp. | [Repositório](https://github.com/joaonavari/usegetnfc) | [Acessar](https://joaonavari.github.io/usegetnfc/) |
 | **Rapidinha** | Pedidos antecipados para cantinas escolares. | [Repositório](https://github.com/joaonavari/rapidinha-home) | [Acessar](https://joaonavari.github.io/rapidinha-home/) |
 | **Placa** | Controle de vendas, compras e lucro para plaquinhas Google com NFC, com dados salvos no navegador. | [Repositório](https://github.com/joaonavari/Vendas_Pr) | [Acessar](https://joaonavari.github.io/Vendas_Pr/) |
