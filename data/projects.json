@@ -31,6 +31,28 @@
     "code": "https://github.com/joaonavari/devflow"
   },
   {
+    "id": "useget",
+    "name": "USEGET",
+    "category": "Landing page",
+    "featured": false,
+    "summary": "Landing page da minha marca de placas NFC + QR Code para comércios, redesenhada como uma vitrine de produto que leva o visitante até o WhatsApp.",
+    "description": "Catálogo gerado a partir de um único arquivo de dados, com filtros por categoria e troca de cor. Cada placa abre o WhatsApp com a mensagem já preenchida. Traz ativação explicada em cartões interativos, seção por segmento de cliente e animações com mola que respeitam a preferência de movimento reduzido.",
+    "status": "",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "image": {
+      "src": "./assets/images/useget.webp",
+      "width": "1600",
+      "height": "1000",
+      "alt": "Topo do site USEGET com o título Um toque. E o cliente chega lá. e três placas NFC de acrílico"
+    },
+    "demo": "https://joaonavari.github.io/usegetnfc/",
+    "code": "https://github.com/joaonavari/usegetnfc"
+  },
+  {
     "id": "rapidinha",
     "name": "Rapidinha",
     "category": "Aplicação web",
